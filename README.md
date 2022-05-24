@@ -67,7 +67,7 @@ v := n.Eval64(x, y, z) // v is between -1.0 and 1.0 of float64
 
 ### Note
 
-This package does NOT support more than 3 dimensions. If more than 3 dimentions were given, such as `Noise.Eval64(w, x, y, z)`, it will retrun a `0` (zero) value.
+This package ONLY supports up to 3 dimensions. If more than 3 dimentions were given, such as `Noise.Eval64(w, x, y, z)`, it will retrun a `0` (zero) value.
 
 ## Usage
 
