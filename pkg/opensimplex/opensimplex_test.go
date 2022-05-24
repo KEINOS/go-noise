@@ -10,46 +10,17 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// samples is a list of assert values for testing from the original OpenSimplex package.
 var samples [][]float64
 
-func loadSamples(t *testing.T) [][]float64 {
-	t.Helper()
-
-	if len(samples) > 0 {
-		return samples
-	}
-
-	f, err := os.Open("../../testdata/opensimplex.json")
-	require.NoError(t, err)
-
-	defer f.Close()
-
-	dec := json.NewDecoder(f)
-	for {
-		var sample []float64
-
-		err := dec.Decode(&sample)
-		if err == io.EOF {
-			break
-		}
-
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		samples = append(samples, sample)
-	}
-
-	return samples
-}
-
 func TestSamplesMatch(t *testing.T) {
-	samples := loadSamples(t)
+	samples = loadSamples(t)
 
 	n := opensimplex.New(0)
 
 	for _, s := range samples {
 		var expected, actual float64
+
 		switch len(s) {
 		case 3:
 			expected = s[2]
@@ -68,4 +39,40 @@ func TestSamplesMatch(t *testing.T) {
 				expected, actual, len(s)-1, s[:len(s)-1])
 		}
 	}
+}
+
+// ----------------------------------------------------------------------------
+//  Helper Functions
+// ----------------------------------------------------------------------------
+
+func loadSamples(t *testing.T) [][]float64 {
+	t.Helper()
+
+	if len(samples) > 0 {
+		return samples
+	}
+
+	f, err := os.Open("../../testdata/opensimplex.json")
+	require.NoError(t, err)
+
+	defer f.Close()
+
+	dec := json.NewDecoder(f)
+
+	for {
+		var sample []float64
+
+		err := dec.Decode(&sample)
+		if err == io.EOF {
+			break
+		}
+
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		samples = append(samples, sample)
+	}
+
+	return samples
 }

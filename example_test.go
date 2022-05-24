@@ -9,7 +9,10 @@ import (
 )
 
 func ExampleNew() {
-	noise, err := noise.New(noise.OpenSimplex, rand.Int63())
+	//nolint:gosec // Example value
+	seed := rand.Int63()
+
+	noise, err := noise.New(noise.OpenSimplex, seed)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -31,7 +34,7 @@ func ExampleNew() {
 //  OpenSimplex Noise
 // ----------------------------------------------------------------------------
 
-func ExampleNew_one_dimention_opensimplex_noise_in_float32() {
+func ExampleNew_one_dimension_opensimplex_noise_in_float32() {
 	const seed = 100
 
 	gen, err := noise.New(noise.OpenSimplex, seed)
@@ -53,7 +56,7 @@ func ExampleNew_one_dimention_opensimplex_noise_in_float32() {
 	// 2;0.1385
 }
 
-func ExampleNew_two_dimention_opensimplex_noise_in_float32() {
+func ExampleNew_two_dimension_opensimplex_noise_in_float32() {
 	const seed = 100
 
 	gen, err := noise.New(noise.OpenSimplex, seed)
@@ -78,7 +81,7 @@ func ExampleNew_two_dimention_opensimplex_noise_in_float32() {
 	// 1;1;0.0950
 }
 
-func ExampleNew_three_dimention_opensimplex_noise_in_float32() {
+func ExampleNew_three_dimension_opensimplex_noise_in_float32() {
 	const seed = 100
 
 	gen, err := noise.New(noise.OpenSimplex, seed)
@@ -109,7 +112,7 @@ func ExampleNew_three_dimention_opensimplex_noise_in_float32() {
 	// 1;1;1;-0.1585
 }
 
-func ExampleNew_one_dimention_opensimplex_in_float64() {
+func ExampleNew_one_dimension_opensimplex_in_float64() {
 	const seed = 100
 
 	gen, err := noise.New(noise.OpenSimplex, seed)
@@ -125,9 +128,9 @@ func ExampleNew_one_dimention_opensimplex_in_float64() {
 	}
 
 	// Output:
-	// 0;0.0000
-	// 1;0.0950
-	// 2;0.1385
+	// 0.0000;0.0000
+	// 0.1000;0.0950
+	// 0.2000;0.1385
 }
 
 // ----------------------------------------------------------------------------

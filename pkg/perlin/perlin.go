@@ -8,9 +8,12 @@ package perlin
 import goperlin "github.com/aquilax/go-perlin"
 
 const (
-	Alpha     = 2.       // Alpha is the default smoothness of Perlin noise.
-	Beta      = 2.       // Beta is the default scale of Perlin noise.
-	Iteration = int32(3) // Iteration is the default number of iterations of Perlin noise.
+	// Alpha is the default smoothness of Perlin noise.
+	Alpha = 2.
+	// Beta is the default scale of Perlin noise.
+	Beta = 2.
+	// Iteration is the default number of iterations of Perlin noise.
+	Iteration = int32(3)
 )
 
 // ----------------------------------------------------------------------------
@@ -22,8 +25,8 @@ func New(seed int64) *Noise {
 	return &Noise{
 		Smoothness: Alpha,
 		Scale:      Beta,
-		Seed:       int64(seed),
-		Iteration:  int32(Iteration),
+		Seed:       seed,
+		Iteration:  Iteration,
 	}
 }
 
@@ -31,10 +34,11 @@ func New(seed int64) *Noise {
 //  Type: Noise
 // ----------------------------------------------------------------------------
 
+// Noise holds parameters of Perlin noise.
 type Noise struct {
 	// Smoothness is the weight when the sum is formed. Which is the alpha value
 	// in Ken Perlin's article. Default is 2. The smaller the number, the more
-	//noise is generated.
+	// noise is generated.
 	Smoothness float64
 	// Scale is the harmonic scaling/spacing, typically 2. Which is the beta value
 	// in Ken Perlin's article. Default is 2.
@@ -47,22 +51,11 @@ type Noise struct {
 }
 
 // ----------------------------------------------------------------------------
-//  Methods
+//  Methods (Public)
 // ----------------------------------------------------------------------------
 
-func (n *Noise) Eval64(dim ...float64) float64 {
-	switch len(dim) {
-	case 1:
-		return n.eval1D(dim[0])
-	case 2:
-		return n.eval2D(dim[0], dim[1])
-	case 3:
-		return n.eval3D(dim[0], dim[1], dim[2])
-	}
-
-	return 0
-}
-
+// Eval32 returns a float32 Perlin noise value for the given coordinates.
+// It is a conversion of float64 to float32 to support Eval32 interface.
 func (n *Noise) Eval32(dim ...float32) float32 {
 	switch len(dim) {
 	case 1:
@@ -76,20 +69,39 @@ func (n *Noise) Eval32(dim ...float32) float32 {
 	return 0
 }
 
+// Eval64 returns a float64 Perlin noise value for the given coordinates.
+func (n *Noise) Eval64(dim ...float64) float64 {
+	switch len(dim) {
+	case 1:
+		return n.eval1D(dim[0])
+	case 2:
+		return n.eval2D(dim[0], dim[1])
+	case 3:
+		return n.eval3D(dim[0], dim[1], dim[2])
+	}
+
+	return 0
+}
+
+// ----------------------------------------------------------------------------
+//  Methods (Private)
+// ----------------------------------------------------------------------------
+
+// eval1D generates float64 Perlin noise value from 1-dimensional coordinate.
 func (n *Noise) eval1D(x float64) float64 {
 	p := goperlin.NewPerlin(n.Smoothness, n.Scale, n.Iteration, n.Seed)
 
 	return p.Noise1D(x)
 }
 
-// Eval2D generates 2-dimensional Perlin Noise value.
+// eval2D generates float64 Perlin noise value from 2-dimensional coordinates.
 func (n *Noise) eval2D(x, y float64) float64 {
 	p := goperlin.NewPerlin(n.Smoothness, n.Scale, n.Iteration, n.Seed)
 
 	return p.Noise2D(x, y)
 }
 
-// Eval3D generates 3-dimensional Perlin Noise value.
+// eval3D generates float64 Perlin noise value from 3-dimensional coordinates.
 func (n *Noise) eval3D(x, y, z float64) float64 {
 	p := goperlin.NewPerlin(n.Smoothness, n.Scale, n.Iteration, n.Seed)
 

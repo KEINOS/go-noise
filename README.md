@@ -14,11 +14,10 @@ In the example below, 1 dimmentional method `Noise.Eval64(x)` was used to genera
 //
 // noiseType := noise.Perlin
 // noiseType := noise.OpenSimplex
-n := noise.New(noiseType, seed)
+n, err := noise.New(noiseType, seed)
 
 yy := n.Eval64(x / smoothness) // yy is between -1.0 and 1.0 of float64
-
-y := (yy + 1) / 2 * 500 // y is between 0 and 500
+y := (yy + 1) / 2 * 500        // y is between 0 and 500
 ```
 
 ![](./_example/2d/2d_perlin.png)
@@ -30,8 +29,8 @@ y := (yy + 1) / 2 * 500 // y is between 0 and 500
 
 ```go
 // Obtain the noise value at the position (x, y)
-n := noise.New(noiseType, seed)
-v := n.Eval64(x, y) // y is between -1.0 and 1.0 of float64
+n, err := noise.New(noiseType, seed)
+v := n.Eval64(x, y) // v is between -1.0 and 1.0 of float64
 ```
 
 To create a 2D image, plot the `v` value at the position `(x, y)` in the 2D space. The 2D image example is equivalent to a frame of the 3D image example below.
@@ -46,8 +45,8 @@ The X and Y axes are the 2D image and the Z axis is the "time", or animation fra
 
 ```go
 // Obtain the noise value at the position (x, y, z)
-n := noise.New(noise.Perlin, seed)
-v := n.Eval64(x, y, z) // y is between -1.0 and 1.0 of float64
+n, err := noise.New(noise.Perlin, seed)
+v := n.Eval64(x, y, z) // v is between -1.0 and 1.0 of float64
 ```
 
 ![](./_example/3d/animation_perlin.gif)
@@ -58,8 +57,8 @@ v := n.Eval64(x, y, z) // y is between -1.0 and 1.0 of float64
 
 ```go
 // Obtain the noise value at the position (x, y, z)
-n := noise.New(noise.OpenSimplex, seed)
-v := n.Eval64(x, y, z) // y is between -1.0 and 1.0 of float64
+n, err := noise.New(noise.OpenSimplex, seed)
+v := n.Eval64(x, y, z) // v is between -1.0 and 1.0 of float64
 ```
 
 ![](./_example/3d/animation_opensimplex.gif)
@@ -135,6 +134,10 @@ const frame = 50
 // Create new noise generator of Perlin type
 genNoise, err := noise.New(noise.Perlin, seed)
 
+if err != nil {
+    // error handle
+}
+
 for z := 0; z < frame; z++ {
     zz := float64(z) / steps
 
@@ -165,3 +168,16 @@ for z := 0; z < frame; z++ {
 ```
 
 - [Complete Source](./_example/3d)
+
+#### Advanced
+
+To change `alpha` and `beta` values of Perling noise.
+
+```go
+alpha := 0.5
+beta := 0.5
+
+n, err := noise.New(noise.Perlin, seed)
+n.Smoothness = alpha
+n.Scale = beta
+```

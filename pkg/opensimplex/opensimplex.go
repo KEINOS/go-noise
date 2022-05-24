@@ -17,13 +17,15 @@ func New(seed int64) *Noise {
 //  Type: Noise
 // ----------------------------------------------------------------------------
 
+// Noise holds parameter values for OpenSimplex noise. It is an implementation
+// of Noise interface.
 type Noise struct {
 	// Seed holds the seed value for the noise.
 	Seed int64
 }
 
 // ----------------------------------------------------------------------------
-//  Methods
+//  Methods (Public)
 // ----------------------------------------------------------------------------
 
 // Eval32 returns a float32 noise value for the given coordinates.
@@ -54,42 +56,46 @@ func (n *Noise) Eval64(dim ...float64) float64 {
 	return 0
 }
 
-// eval1D32 generates 1-dimensional OpenSimplex Noise value.
+// ----------------------------------------------------------------------------
+//  Methods (Private)
+// ----------------------------------------------------------------------------
+
+// eval1D32 generates float32 OpenSimplex noise value from 1-dimensional coordinate.
 func (n *Noise) eval1D32(x float32) float32 {
 	p := orig.New32(n.Seed)
 
 	return p.Eval2(x, x)
 }
 
-// eval2D32 generates 2-dimensional OpenSimplex Noise value.
+// eval2D32 generates float32 OpenSimplex noise value from 2-dimensional coordinates.
 func (n *Noise) eval2D32(x, y float32) float32 {
 	p := orig.New32(n.Seed)
 
 	return p.Eval2(x, y)
 }
 
-// eval3D32 generates 3-dimensional OpenSimplex Noise value.
+// eval3D32 generates float32 OpenSimplex noise value from 3-dimensional coordinates.
 func (n *Noise) eval3D32(x, y, z float32) float32 {
 	p := orig.New32(n.Seed)
 
 	return p.Eval3(x, y, z)
 }
 
-// eval1D64 generates 1-dimensional OpenSimplex Noise value.
+// eval1D64 generates float64 OpenSimplex noise value from 1-dimensional coordinate.
 func (n *Noise) eval1D64(x float64) float64 {
 	p := orig.New(n.Seed)
 
 	return p.Eval2(x, x)
 }
 
-// eval2D64 generates 2-dimensional OpenSimplex Noise value.
+// eval2D64 generates float64 OpenSimplex noise value from 2-dimensional coordinates.
 func (n *Noise) eval2D64(x, y float64) float64 {
 	p := orig.New(n.Seed)
 
 	return p.Eval2(x, y)
 }
 
-// eval3D64 generates 3-dimensional OpenSimplex Noise value.
+// eval3D64 generates float64 OpenSimplex noise value from 3-dimensional coordinates.
 func (n *Noise) eval3D64(x, y, z float64) float64 {
 	p := orig.New(n.Seed)
 

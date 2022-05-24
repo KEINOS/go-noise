@@ -97,7 +97,7 @@ linters-settings:
     statements: 40
   gocognit:
     # minimal code complexity to report, 30 by default (but we recommend 10-20)
-    min-complexity: 10
+    min-complexity: 15
   gocritic:
     # Which checks should be enabled; can't be combined with 'disabled-checks';
     # See https://go-critic.github.io/overview#checks-overview
@@ -114,7 +114,7 @@ linters-settings:
         sizeThreshold: 70
   gocyclo:
     # minimal code complexity to report, 30 by default (but we recommend 10-20)
-    min-complexity: 10
+    min-complexity: 15
   godot:
     # check that each sentence starts with a capital letter
     capital: true

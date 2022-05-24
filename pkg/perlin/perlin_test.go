@@ -16,12 +16,12 @@ func Test_original_perlin(t *testing.T) {
 	p := goperlin.NewPerlin(perlin.Alpha, perlin.Beta, perlin.Iteration, seed)
 
 	for _, test := range []struct {
-		input  float64
 		expect string
+		input  float64
 	}{
-		{0, "0;0.0000"},
-		{1, "1;-0.0086"},
-		{2, "2;-0.0017"},
+		{input: 0, expect: "0;0.0000"},
+		{input: 1, expect: "1;-0.0086"},
+		{input: 2, expect: "2;-0.0017"},
 	} {
 		x := test.input
 		expect := test.expect

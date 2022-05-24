@@ -6,11 +6,15 @@ import (
 	"github.com/pkg/errors"
 )
 
-type NoiseType int
+// Algo represents a noise type of the algorithm to generate noise.
+type Algo int
 
 const (
-	Unknown NoiseType = iota
+	// Unknown noise type.
+	Unknown Algo = iota
+	// Perlin noise type.
 	Perlin
+	// OpenSimplex noise type.
 	OpenSimplex
 )
 
@@ -43,7 +47,7 @@ type Noise interface {
 // ----------------------------------------------------------------------------
 
 // New returns a new noise generator.
-func New(noiseType NoiseType, seed int64) (Noise, error) {
+func New(noiseType Algo, seed int64) (Noise, error) {
 	switch noiseType {
 	case Perlin:
 		return perlin.New(seed), nil
