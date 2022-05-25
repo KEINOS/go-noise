@@ -19,7 +19,7 @@ func ExampleNew() {
 
 	w, h := 100, 100
 
-	heightmap := make([]float64, int(w*h))
+	heightmap := make([]float64, w*h)
 
 	for y := 0; y < h; y++ {
 		for x := 0; x < w; x++ {
