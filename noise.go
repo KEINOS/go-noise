@@ -6,7 +6,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-// Algo represents a noise type of the algorithm to generate noise.
+// Algo represents the algorithm of the noise to generate.
 type Algo int
 
 const (
@@ -31,6 +31,9 @@ type Generator interface {
 	//   Eval32(x)
 	//   Eval32(x, y)
 	//   Eval32(x, y, z)
+	//
+	// Implementations of this method must return the same value if the seed
+	// value is the same.
 	Eval32(dim ...float32) float32
 	// Eval64 returns a float64 noise value at given coordinates. The maximum
 	// number of arguments is three.
@@ -39,6 +42,9 @@ type Generator interface {
 	//   Eval64(x)
 	//   Eval64(x, y)
 	//   Eval64(x, y, z)
+	//
+	// Implementations of this method must return the same value if the seed
+	// value is the same.
 	Eval64(dim ...float64) float64
 }
 
