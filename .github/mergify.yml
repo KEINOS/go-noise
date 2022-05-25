@@ -1,0 +1,20 @@
+pull_request_rules:
+  - name: Automatic merge on approval
+    conditions:
+      - author=KEINOS
+      - base=main
+      - title~=^Changes
+      - files=go.mod
+      - files=go.sum
+      - "#files=2"
+      - check-success=Analyze (go)
+      - check-success=build
+      - check-success=Unit test (ubuntu-latest)
+      - check-success=Unit test (macos-latest)
+      - check-success=Unit test (windows-latest)
+      - check-success=CodeQL
+      - check-success=codecov/patch
+      - check-success=codecov/project
+    actions:
+      merge:
+        method: merge

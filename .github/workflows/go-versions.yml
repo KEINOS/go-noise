@@ -1,0 +1,83 @@
+# It runs unit tests on various versions of Go.
+name: go1.17+
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  schedule:
+    # Runs at 19:10 UTC on day-of-month 1 (Every day-of-month 1 at AM 04:10 JST, my time)
+    # See: https://crontab.guru/
+    - cron: '10 19 1 * *'
+
+env:
+  PATH_CACHE: /tmp/docker-img-arch
+
+jobs:
+  go:
+    name: Run tests on Go via container
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Create hash for image tagging
+        id: imagehash
+        uses: KEINOS/gh-action-hash-for-cache@main
+        with:
+          path: |
+            ./.github/Dockerfile
+            ./go.mod
+          variant: $(TZ=UTC-9 date '+%Y%m')
+
+      - name: Export cache paths and tags
+        id: imagetag
+        run: |
+          HASH="${{ steps.imagehash.outputs.hash }}"
+          TAG="${HASH:0:7}:cached"
+          PATH_TAR=${{ env.PATH_CACHE }}"/tar"
+          echo "::set-output name=TAG::${TAG}"
+          echo "::set-output name=PATH_TAR::${PATH_TAR}"
+
+      - name: Enable cache/restore image archive
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.PATH_CACHE }}
+          key: ${{ steps.imagehash.outputs.hash }}
+
+      - name: Load Docker images if exist
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: |
+          docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}/github_v1_17_1.tar
+          docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}/github_v1_18_1.tar
+          docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}/github_latest_1.tar
+
+      - name: Pull base images if no-exist
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          : # Pull images one-by-one for stability
+          docker pull golang:1.17-alpine
+          docker pull golang:1.18-alpine
+          docker pull golang:alpine
+
+      - name: Build Docker images if no-exists
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p ${{ steps.imagetag.outputs.PATH_TAR }}
+          : # Build container images
+          docker-compose --file ./.github/docker-compose.yml build
+
+      - name: Save built images if no-exists
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          docker save --output ${{ steps.imagetag.outputs.PATH_TAR }}/github_v1_17_1.tar github_v1_17:latest
+          docker save --output ${{ steps.imagetag.outputs.PATH_TAR }}/github_v1_18_1.tar github_v1_18:latest
+          docker save --output ${{ steps.imagetag.outputs.PATH_TAR }}/github_latest_1.tar github_latest:latest
+
+      - name: Run tests on Go 1.17
+        run: docker-compose --file ./.github/docker-compose.yml run v1_17
+      - name: Run tests on Go 1.18
+        run: docker-compose --file ./.github/docker-compose.yml run v1_18
+      - name: Run tests on latest Go
+        run: docker-compose --file ./.github/docker-compose.yml run latest

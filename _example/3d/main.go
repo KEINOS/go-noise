@@ -13,10 +13,10 @@ import (
 )
 
 const (
-	// Image size of X and Y.
+	// Image size. The max X and Y value for looping.
 	width  = 250
 	height = 250
-	// Z-axis = number of frames of the animation.
+	// depth is the Z-axis which is the number of frames of the animation.
 	depth = 50
 )
 
@@ -27,11 +27,10 @@ const (
 	// noise pattern.
 	seed = 100
 
-	// The bigger the zoom and less randomness.
-	zoom = 25
-	// Smoothness between frames. Smaller value is smoother but little difference
-	// between frames.
-	steps = 5
+	// The bigger the zoom and less randomness in the range.
+	zoomIn = 25
+	// The smaller the smoother and little difference between frames.
+	smoothness = 5
 )
 
 // ----------------------------------------------------------------------------
@@ -88,6 +87,8 @@ func CreatePaletteGray() color.Palette {
 	return grayPalet
 }
 
+// GenNoiseImage is the actual function which generates the image with the provided
+// noise generator.
 func GenNoiseImage(gen noise.Noise, pathFile string) error {
 	// Define boundary of image
 	myBound := image.Rectangle{Max: image.Point{X: width, Y: height}}
@@ -98,15 +99,15 @@ func GenNoiseImage(gen noise.Noise, pathFile string) error {
 
 	// Z-axis is the frame number
 	for z := 0; z < depth; z++ {
-		zz := float64(z) / steps
+		zz := float64(z) / smoothness
 		canvas := image.NewPaletted(myBound, grayPalet)
 
 		// Create frame image
 		for y := 0; y < height; y++ {
-			yy := float64(y) / zoom
+			yy := float64(y) / zoomIn
 
 			for x := 0; x < width; x++ {
-				xx := float64(x) / zoom
+				xx := float64(x) / zoomIn
 
 				// Generate noise at xx, yy of layer zz
 				grayC := NoiseToUint8(

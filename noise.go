@@ -22,8 +22,8 @@ const (
 //  Types
 // ----------------------------------------------------------------------------
 
-// Noise is an interface for noise generator.
-type Noise interface {
+// Generator is an interface for noise generator.
+type Generator interface {
 	// Eval32 returns a float32 noise value at given coordinates. The maximum
 	// number of arguments is three.
 	//
@@ -47,7 +47,7 @@ type Noise interface {
 // ----------------------------------------------------------------------------
 
 // New returns a new noise generator.
-func New(noiseType Algo, seed int64) (Noise, error) {
+func New(noiseType Algo, seed int64) (Generator, error) {
 	switch noiseType {
 	case Perlin:
 		return perlin.New(seed), nil

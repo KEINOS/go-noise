@@ -46,10 +46,10 @@ func ExampleNew_eval32_two_dimmentions() {
 	}
 
 	// Output:
-	// 0000
+	// 0.0000
 	// 0.0170
 	// -0.0068
-	// 0.010
+	// 0.0102
 }
 
 func ExampleNew_eval32_three_dimmentions() {
