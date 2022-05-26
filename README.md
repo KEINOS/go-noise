@@ -1,5 +1,5 @@
-[![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/go-noise.svg)](https://pkg.go.dev/github.com/KEINOS/go-noise/ "View document")
-[![go1.16+](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml)
+[![go1.17+](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml "This package supports Go 1.17 or later")
+[![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/go-noise.svg)](https://pkg.go.dev/github.com/KEINOS/go-noise/ "View document and reference of this package")
 
 # Go-Noise
 
@@ -181,8 +181,8 @@ for z := 0; z < frame; z++ {
 
 ## Contribute
 
-[![go1.16+](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml)
-[![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/go-noise.svg)](https://pkg.go.dev/github.com/KEINOS/go-noise/ "View document")
+[![go1.17+](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml "This package supports Go 1.17 or later")
+[![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/go-noise.svg)](https://pkg.go.dev/github.com/KEINOS/go-noise/ "View document and reference of this package")
 
 - Pull Request:
     - **Any PR for improvement is welcome!** We will merge it as soon as it passes the CIs and not a prank-kind implementation. ;-)
@@ -199,14 +199,14 @@ for z := 0; z < frame; z++ {
 
 ### Statuses
 
-[![PlatformTests](https://github.com/KEINOS/go-noise/actions/workflows/platform-test.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/platform-test.yml)
-[![golangci-lint](https://github.com/KEINOS/go-noise/actions/workflows/golangci-lint.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/golangci-lint.yml)
-[![CodeQL](https://github.com/KEINOS/go-noise/actions/workflows/codeQL-analysis.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/codeQL-analysis.yml)
-[![codecov](https://codecov.io/gh/KEINOS/go-noise/branch/main/graph/badge.svg?token=cFoXdcwtaj)](https://codecov.io/gh/KEINOS/go-noise)
-[![Go Report Card](https://goreportcard.com/badge/github.com/KEINOS/go-noise)](https://goreportcard.com/report/github.com/KEINOS/go-noise)
+[![PlatformTests](https://github.com/KEINOS/go-noise/actions/workflows/platform-test.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/platform-test.yml "Tests on Linux, macOS, Windows platforms")
+[![golangci-lint](https://github.com/KEINOS/go-noise/actions/workflows/golangci-lint.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/golangci-lint.yml "Static analysis and lint check by golangci-lint")
+[![CodeQL](https://github.com/KEINOS/go-noise/actions/workflows/codeQL-analysis.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/codeQL-analysis.yml "Security and vulnerability analysis by CodeQL")
+[![codecov](https://codecov.io/gh/KEINOS/go-noise/branch/main/graph/badge.svg?token=cFoXdcwtaj)](https://codecov.io/gh/KEINOS/go-noise "Code coverage")
+[![Go Report Card](https://goreportcard.com/badge/github.com/KEINOS/go-noise)](https://goreportcard.com/report/github.com/KEINOS/go-noise "Code quality")
 
-[![Weekly Update](https://github.com/KEINOS/go-noise/actions/workflows/weekly-update.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/weekly-update.yml)
-[![Opened Issues](https://img.shields.io/github/issues/KEINOS/go-noise?color=lightblue&logo=github)](https://github.com/KEINOS/go-noise/issues "opened issues")
+[![Weekly Update](https://github.com/KEINOS/go-noise/actions/workflows/weekly-update.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/weekly-update.yml "Update go.mod to latest version")
+[![Opened Issues](https://img.shields.io/github/issues/KEINOS/go-noise?color=lightblue&logo=github)](https://github.com/KEINOS/go-noise/issues "Opened issues")
 [![PR](https://img.shields.io/github/issues-pr/KEINOS/go-noise?color=lightblue&logo=github)](https://github.com/KEINOS/go-noise/pulls "Pull Requests")
 
 ### License
