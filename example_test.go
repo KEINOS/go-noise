@@ -32,6 +32,56 @@ func ExampleNew() {
 }
 
 // ----------------------------------------------------------------------------
+//  Custom Noise (User-Defind Function)
+// ----------------------------------------------------------------------------
+
+func ExampleNew_assign_user_defined_function() {
+	const seed = 100
+
+	// Create a noise generator.
+	gen, err := noise.New(noise.Custom, seed)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// rnd is a random number generator.
+	var rnd *rand.Rand
+
+	// Define user function to generate custom noise.
+	// Here we define a function that returns a pseudo-random value from the
+	// given seed and itereate 'dim' times.
+	myFunc := func(seed int64, dim ...float32) float32 {
+		if rnd == nil {
+			//nolint:gosec // Use of weak random number generation is intended here.
+			rnd = rand.New(rand.NewSource(seed))
+		}
+
+		for i := 0; i < len(dim); i++ {
+			max := int(dim[i])
+
+			for ii := 0; ii < max; ii++ {
+				_ = rnd.Float32()
+			}
+		}
+
+		// Generate a pseudo-random number.
+		v := rnd.Float32()
+
+		return v*2 - 1 // Convert [0.0,1.0] to [-1.0,1.0]
+	}
+
+	// Assign user-defined function
+	if err := gen.SetEval32(myFunc); err != nil {
+		log.Fatal(err)
+	}
+
+	// Get noise value at (1, 2, 3)
+	fmt.Println(gen.Eval32(1, 2, 3))
+
+	// Output: -0.1159181
+}
+
+// ----------------------------------------------------------------------------
 //  OpenSimplex Noise
 // ----------------------------------------------------------------------------
 

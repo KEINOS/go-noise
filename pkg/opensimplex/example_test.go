@@ -2,12 +2,13 @@ package opensimplex_test
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/KEINOS/go-noise/pkg/opensimplex"
 )
 
 // -----------------------------------------------------------------------------
-//  Noise.Eval32 implementation test
+//  Generator.Eval32 implementation test
 // -----------------------------------------------------------------------------
 
 func ExampleNew_eval32_one_dimmention() {
@@ -83,9 +84,7 @@ func ExampleNew_eval32_three_dimmentions() {
 }
 
 func ExampleNew_eval32_more_than_three_dimmentions() {
-	const (
-		seed = 100
-	)
+	const seed = 100
 
 	p := opensimplex.New(seed)
 
@@ -97,7 +96,7 @@ func ExampleNew_eval32_more_than_three_dimmentions() {
 }
 
 // -----------------------------------------------------------------------------
-//  Noise.Eval64 implementation test
+//  Generator.Eval64 implementation test
 // -----------------------------------------------------------------------------
 
 func ExampleNew_eval64_one_dimmention() {
@@ -182,9 +181,7 @@ func ExampleNew_eval64_three_dimmentions() {
 }
 
 func ExampleNew_eval64_more_than_three_dimmentions() {
-	const (
-		seed = 100
-	)
+	const seed = 100
 
 	p := opensimplex.New(seed)
 
@@ -193,4 +190,44 @@ func ExampleNew_eval64_more_than_three_dimmentions() {
 	fmt.Printf("%0.0f", p.Eval64(0.0001, 0.0001, 0.0001, 0.0001))
 
 	// Output: 0
+}
+
+func ExampleGenerator_SetEval32() {
+	const seed = 100
+
+	p := opensimplex.New(seed)
+
+	// User-defined functions cannot be assigned to OpenSimplex types. Use Custom type instead.
+	err := p.SetEval32(func(seed int64, dim ...float32) float32 {
+		return 0
+	})
+
+	if err == nil {
+		log.Fatal("OpenSimplex type should return an error on SetEval32")
+	}
+
+	fmt.Println(err.Error())
+
+	// Output:
+	// float32 evaluation function is already set. You can not set custom function in OpenSimplex type
+}
+
+func ExampleGenerator_SetEval64() {
+	const seed = 100
+
+	p := opensimplex.New(seed)
+
+	// User-defined functions cannot be assigned to OpenSimplex types. Use Custom type instead.
+	err := p.SetEval64(func(seed int64, dim ...float64) float64 {
+		return 0
+	})
+
+	if err == nil {
+		log.Fatal("OpenSimplex type should return an error on SetEval32")
+	}
+
+	fmt.Println(err.Error())
+
+	// Output:
+	// float64 evaluation function is already set. You can not set custom function in OpenSimplex type
 }

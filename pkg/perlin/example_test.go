@@ -2,6 +2,7 @@ package perlin_test
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/KEINOS/go-noise/pkg/perlin"
 )
@@ -179,4 +180,44 @@ func ExampleNew_eval64_more_than_three_dimmentions() {
 	fmt.Printf("%0.0f", p.Eval64(0.0001, 0.0001, 0.0001, 0.0001))
 
 	// Output: 0
+}
+
+func ExampleGenerator_SetEval32() {
+	const seed = 100
+
+	p := perlin.New(seed)
+
+	err := p.SetEval32(func(seed int64, dim ...float32) float32 {
+		return 0
+	})
+
+	// User-defined functions cannot be assigned to Perlin types. Use Custom type instead.
+	if err == nil {
+		log.Fatal("Perlin type should return an error on SetEval32")
+	}
+
+	fmt.Println(err.Error())
+
+	// Output:
+	// float32 evaluation function is already set. You can not set custom function in Perlin type
+}
+
+func ExampleGenerator_SetEval64() {
+	const seed = 100
+
+	p := perlin.New(seed)
+
+	// User-defined functions cannot be assigned to Perlin types. Use Custom type instead.
+	err := p.SetEval64(func(seed int64, dim ...float64) float64 {
+		return 0
+	})
+
+	if err == nil {
+		log.Fatal("Perlin type should return an error on SetEval32")
+	}
+
+	fmt.Println(err.Error())
+
+	// Output:
+	// float64 evaluation function is already set. You can not set custom function in Perlin type
 }

@@ -10,7 +10,8 @@ ARG VARIANT="1.17-alpine"
 FROM golang:${VARIANT}
 
 RUN apk add --no-cache \
-    git \
+    mesa-dev \
+    pkgconfig \
     alpine-sdk \
     build-base
 

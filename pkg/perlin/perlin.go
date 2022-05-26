@@ -5,7 +5,11 @@ Which implements github.com/KEINOS/go-noise/noise interface.
 */
 package perlin
 
-import goperlin "github.com/aquilax/go-perlin"
+import (
+	"github.com/pkg/errors"
+
+	goperlin "github.com/aquilax/go-perlin"
+)
 
 const (
 	// Alpha is the default smoothness of Perlin noise.
@@ -20,9 +24,9 @@ const (
 //  Constructor
 // ----------------------------------------------------------------------------
 
-// New returns a seeded Perlin noise instance.
-func New(seed int64) *Noise {
-	return &Noise{
+// New returns a noise generator instance of seeded Perlin noise.
+func New(seed int64) *Generator {
+	return &Generator{
 		Smoothness: Alpha,
 		Scale:      Beta,
 		Seed:       seed,
@@ -31,11 +35,11 @@ func New(seed int64) *Noise {
 }
 
 // ----------------------------------------------------------------------------
-//  Type: Noise
+//  Type: Generator
 // ----------------------------------------------------------------------------
 
-// Noise holds parameters of Perlin noise.
-type Noise struct {
+// Generator holds parameters of Perlin noise.
+type Generator struct {
 	// Smoothness is the weight when the sum is formed. Which is the alpha value
 	// in Ken Perlin's article. Default is 2. The smaller the number, the more
 	// noise is generated.
@@ -56,7 +60,7 @@ type Noise struct {
 
 // Eval32 returns a float32 Perlin noise value for the given coordinates.
 // It is a conversion of float64 to float32 to support Eval32 interface.
-func (n *Noise) Eval32(dim ...float32) float32 {
+func (n *Generator) Eval32(dim ...float32) float32 {
 	switch len(dim) {
 	case 1:
 		return float32(n.eval1D(float64(dim[0])))
@@ -70,7 +74,7 @@ func (n *Noise) Eval32(dim ...float32) float32 {
 }
 
 // Eval64 returns a float64 Perlin noise value for the given coordinates.
-func (n *Noise) Eval64(dim ...float64) float64 {
+func (n *Generator) Eval64(dim ...float64) float64 {
 	switch len(dim) {
 	case 1:
 		return n.eval1D(dim[0])
@@ -83,26 +87,38 @@ func (n *Noise) Eval64(dim ...float64) float64 {
 	return 0
 }
 
+// SetEval32 is an implementation of noise.Generator interface. It will always
+// return an error.
+func (n *Generator) SetEval32(f func(seed int64, dim ...float32) float32) error {
+	return errors.New("float32 evaluation function is already set. You can not set custom function in Perlin type")
+}
+
+// SetEval64 is an implementation of noise.Generator interface. It will always
+// return an error.
+func (n *Generator) SetEval64(f func(seed int64, dim ...float64) float64) error {
+	return errors.New("float64 evaluation function is already set. You can not set custom function in Perlin type")
+}
+
 // ----------------------------------------------------------------------------
 //  Methods (Private)
 // ----------------------------------------------------------------------------
 
 // eval1D generates float64 Perlin noise value from 1-dimensional coordinate.
-func (n *Noise) eval1D(x float64) float64 {
+func (n *Generator) eval1D(x float64) float64 {
 	p := goperlin.NewPerlin(n.Smoothness, n.Scale, n.Iteration, n.Seed)
 
 	return p.Noise1D(x)
 }
 
 // eval2D generates float64 Perlin noise value from 2-dimensional coordinates.
-func (n *Noise) eval2D(x, y float64) float64 {
+func (n *Generator) eval2D(x, y float64) float64 {
 	p := goperlin.NewPerlin(n.Smoothness, n.Scale, n.Iteration, n.Seed)
 
 	return p.Noise2D(x, y)
 }
 
 // eval3D generates float64 Perlin noise value from 3-dimensional coordinates.
-func (n *Noise) eval3D(x, y, z float64) float64 {
+func (n *Generator) eval3D(x, y, z float64) float64 {
 	p := goperlin.NewPerlin(n.Smoothness, n.Scale, n.Iteration, n.Seed)
 
 	return p.Noise3D(x, y, z)
