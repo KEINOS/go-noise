@@ -12,16 +12,16 @@ It is a wrapper to facilitate the use of [go-perlin](https://github.com/aquilax/
 In the example below, 1 dimmentional method `noise.Generator.Eval64(x)` was used to generate the noise value `y` at the position `(x)`.
 
 ```go
-// import "github.com/KEINOS/go-noise"
-//
-// const seed = 100       // noise pattern ID
-// const smoothness = 100 // noise smoothness
-//
-// // noiseType choises
-// noiseType := noise.Perlin
-// noiseType := noise.OpenSimplex
-// noiseType := noise.Custom
-n, err := noise.New(noiseType, seed)
+import "github.com/KEINOS/go-noise"
+
+const seed = 100       // noise pattern ID
+const smoothness = 100 // noise smoothness
+
+// noiseType choises
+//   noise.Perlin
+//   noise.OpenSimplex
+//   noise.Custom
+n, err := noise.New(noise.Perlin, seed)
 
 yy := n.Eval64(x / smoothness) // yy is between -1.0 and 1.0 of float64
 y := (yy + 1) / 2 * 500        // y is between 0 and 500
@@ -81,8 +81,10 @@ This package ONLY supports up to 3 dimensions. If more than 3 dimentions were gi
 
 ### Require module
 
-```bash
+```go
 go get "github.com/KEINOS/go-noise"
+
+// import "github.com/KEINOS/go-noise"
 ```
 
 ### Constructor
@@ -91,43 +93,54 @@ go get "github.com/KEINOS/go-noise"
 noise.New(noiseType noise.Algo, seed int64) (noise.Generator, error)
 ```
 
-```go
-import "github.com/KEINOS/go-noise"
+- Choises of `noiseType`
+    - `noise.Perlin`: Uses the Perlin noise algorithm to generate the noise value.
+    - `noise.OpenSimplex`: Uses the OpenSimplex noise algorithm to generate the noise value.
+    - `noise.Custom`: Uses the user-defined function to generate noise value.
+- `seed`
+    - Seed is like pattern ID. If the seed values are the same, the noise pattern will also be the same.
 
-// Seed is like pattern ID.
-// If the seed values are the same, the noise pattern will also be the
-// same.
+```go
 const seed = 100
 
 // Noise generator for Perlin noise
 genNoise, err := noise.New(noise.Perlin, seed)
 ```
 ```go
-import "github.com/KEINOS/go-noise"
-
-// Seed is like pattern ID.
-// If the seed values are the same, the noise pattern will also be the
-// same.
 const seed = 100
 
 // Noise generator for OpenSimplex noise
 genNoise, err := noise.New(noise.OpenSimplex, seed)
 ```
+```go
+const seed = 100
+
+// Noise generator for Custom noise
+genNoise, err := noise.New(noise.Custom, seed)
+
+// User defined noise generator
+myNoise32 := func(seed int64, dim ...float32) float32 {
+    // ...
+}
+
+// Assign generator for float32 type
+genNoise, err := genNoise.SetEval32(myNoise32)
+```
 
 ### Methods
 
 ```go
-a := genNoise.Eval32(x)       // 1D noise. Generate noise at x.
-b := genNoise.Eval32(x, y)    // 2D noise. Generate noise at x, y.
-c := genNoise.Eval32(x, y, z) // 3D noise. Generate noise at x, y, z.
+a := genNoise.Eval32(x)       // 1D noise. Obtain noise value at x.
+b := genNoise.Eval32(x, y)    // 2D noise. Obtain noise value at x, y.
+c := genNoise.Eval32(x, y, z) // 3D noise. Obtain noise value at x, y, z.
 
 // a, b, c, x, y, z are float32.
 // Noises a, b, c are between -1.0 and 1.0.
 ```
 ```go
-a := genNoise.Eval64(x)       // 1D noise. Generate noise at x.
-b := genNoise.Eval64(x, y)    // 2D noise. Generate noise at x, y.
-c := genNoise.Eval64(x, y, z) // 3D noise. Generate noise at x, y, z.
+a := genNoise.Eval64(x)       // 1D noise. Obtain noise value at x.
+b := genNoise.Eval64(x, y)    // 2D noise. Obtain noise value at x, y.
+c := genNoise.Eval64(x, y, z) // 3D noise. Obtain noise value at x, y, z.
 
 // a, b, c, x, y, z are float64.
 // Noises a, b, c are between -1.0 and 1.0.
@@ -181,8 +194,9 @@ for z := 0; z < frame; z++ {
 
 ## Contribute
 
-[![go1.17+](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml "This package supports Go 1.17 or later")
 [![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/go-noise.svg)](https://pkg.go.dev/github.com/KEINOS/go-noise/ "View document and reference of this package")
+[![Opened Issues](https://img.shields.io/github/issues/KEINOS/go-noise?color=lightblue&logo=github)](https://github.com/KEINOS/go-noise/issues "Opened issues")
+[![PR](https://img.shields.io/github/issues-pr/KEINOS/go-noise?color=lightblue&logo=github)](https://github.com/KEINOS/go-noise/pulls "Pull Requests")
 
 - Pull Request:
     - **Any PR for improvement is welcome!** We will merge it as soon as it passes the CIs and not a prank-kind implementation. ;-)
@@ -199,20 +213,18 @@ for z := 0; z < frame; z++ {
 
 ### Statuses
 
+[![go1.17+](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml "This package supports Go 1.17 or later")
 [![PlatformTests](https://github.com/KEINOS/go-noise/actions/workflows/platform-test.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/platform-test.yml "Tests on Linux, macOS, Windows platforms")
 [![golangci-lint](https://github.com/KEINOS/go-noise/actions/workflows/golangci-lint.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/golangci-lint.yml "Static analysis and lint check by golangci-lint")
 [![CodeQL](https://github.com/KEINOS/go-noise/actions/workflows/codeQL-analysis.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/codeQL-analysis.yml "Security and vulnerability analysis by CodeQL")
 [![codecov](https://codecov.io/gh/KEINOS/go-noise/branch/main/graph/badge.svg?token=cFoXdcwtaj)](https://codecov.io/gh/KEINOS/go-noise "Code coverage")
 [![Go Report Card](https://goreportcard.com/badge/github.com/KEINOS/go-noise)](https://goreportcard.com/report/github.com/KEINOS/go-noise "Code quality")
-
 [![Weekly Update](https://github.com/KEINOS/go-noise/actions/workflows/weekly-update.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/weekly-update.yml "Update go.mod to latest version")
-[![Opened Issues](https://img.shields.io/github/issues/KEINOS/go-noise?color=lightblue&logo=github)](https://github.com/KEINOS/go-noise/issues "Opened issues")
-[![PR](https://img.shields.io/github/issues-pr/KEINOS/go-noise?color=lightblue&logo=github)](https://github.com/KEINOS/go-noise/pulls "Pull Requests")
 
 ### License
 
 - [Go-Noise](https://github.com/KEINOS/go-noise): [MIT](https://github.com/KEINOS/go-noise/blob/main/LICENSE), Copyright 2022 [KEINOS and the Go-Noise Contributors](https://github.com/KEINOS/go-noise/graphs/contributors).
-- [Go-Perlin](https://github.com/aquilax/go-perlin): [MIT](https://github.com/aquilax/go-perlin/blob/master/LICENSE), Copyright 2022 [Evgeniy Vasilev and his contributors](https://github.com/aquilax/go-perlin/graphs/contributors).
-- [OpenSimplex-Go](https://github.com/ojrac/opensimplex-go): [The Unlicense](https://github.com/ojrac/opensimplex-go/blob/main/LICENSE), By [Owen Raccuglia and his contributors](https://github.com/ojrac/opensimplex-go/graphs/contributors). Port of [Java implementation of OpenSimplex Noise](https://gist.github.com/KdotJPG/b1270127455a94ac5d19).
+    - [Go-Perlin](https://github.com/aquilax/go-perlin): [MIT](https://github.com/aquilax/go-perlin/blob/master/LICENSE), Copyright 2022 [Evgeniy Vasilev and his contributors](https://github.com/aquilax/go-perlin/graphs/contributors).
+    - [OpenSimplex-Go](https://github.com/ojrac/opensimplex-go): [The Unlicense](https://github.com/ojrac/opensimplex-go/blob/main/LICENSE), By [Owen Raccuglia and his contributors](https://github.com/ojrac/opensimplex-go/graphs/contributors). Port of [Java implementation of OpenSimplex Noise](https://gist.github.com/KdotJPG/b1270127455a94ac5d19).
+    - Other Go modules used in this package: [go.mod](https://github.com/KEINOS/go-noise/blob/main/go.mod)
 - [Perlin Noise](https://en.wikipedia.org/wiki/Perlin_noise) and [Simplex Noise](https://en.wikipedia.org/wiki/Simplex_noise) are the algorithms developed by [Ken Perlin](https://en.wikipedia.org/wiki/Ken_Perlin). [OpenSimplex Noise](https://en.wikipedia.org/wiki/OpenSimplex_noise) is a [Kurt Spencer](https://github.com/KdotJPG/)'s [open sourced](https://gist.github.com/KdotJPG/b1270127455a94ac5d19#file-unlicense) [Java implementation](https://uniblock.tumblr.com/post/97868843242/noise).
-- Go modules used in this package: [go.mod](https://github.com/KEINOS/go-noise/blob/main/go.mod)
