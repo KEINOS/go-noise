@@ -1,6 +1,10 @@
 package opensimplex
 
-import orig "github.com/ojrac/opensimplex-go"
+import (
+	"github.com/pkg/errors"
+
+	orig "github.com/ojrac/opensimplex-go"
+)
 
 // ----------------------------------------------------------------------------
 //  Constructor
@@ -54,6 +58,18 @@ func (n *Noise) Eval64(dim ...float64) float64 {
 	}
 
 	return 0
+}
+
+// SetEval32 is an implementation of noise.Generator interface. It will always
+// return an error.
+func (n *Noise) SetEval32(f func(seed int64, dim ...float32) float32) error {
+	return errors.New("float32 evaluation function is already set")
+}
+
+// SetEval64 is an implementation of noise.Generator interface. It will always
+// return an error.
+func (n *Noise) SetEval64(f func(seed int64, dim ...float64) float64) error {
+	return errors.New("float64 evaluation function is already set")
 }
 
 // ----------------------------------------------------------------------------

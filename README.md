@@ -17,8 +17,10 @@ In the example below, 1 dimmentional method `noise.Generator.Eval64(x)` was used
 // const seed = 100       // noise pattern ID
 // const smoothness = 100 // noise smoothness
 //
+// // noiseType choises
 // noiseType := noise.Perlin
 // noiseType := noise.OpenSimplex
+// noiseType := noise.Custom
 n, err := noise.New(noiseType, seed)
 
 yy := n.Eval64(x / smoothness) // yy is between -1.0 and 1.0 of float64
@@ -27,6 +29,7 @@ y := (yy + 1) / 2 * 500        // y is between 0 and 500
 
 ![](./_example/2d/2d_perlin.png)
 ![](./_example/2d/2d_opensimplex.png)
+![](./_example/2d/2d_pseudorandom.png)
 
 - [Source](./_example/2d)
 
@@ -83,6 +86,10 @@ go get "github.com/KEINOS/go-noise"
 ```
 
 ### Constructor
+
+```go
+noise.New(noiseType noise.Algo, seed int64) (noise.Generator, error)
+```
 
 ```go
 import "github.com/KEINOS/go-noise"

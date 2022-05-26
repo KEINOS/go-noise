@@ -1,6 +1,7 @@
 package noise
 
 import (
+	"github.com/KEINOS/go-noise/pkg/custom"
 	"github.com/KEINOS/go-noise/pkg/opensimplex"
 	"github.com/KEINOS/go-noise/pkg/perlin"
 	"github.com/pkg/errors"
@@ -16,6 +17,8 @@ const (
 	Perlin
 	// OpenSimplex noise type.
 	OpenSimplex
+	// Custom uses the user-defined function to generate noise.
+	Custom
 )
 
 // ----------------------------------------------------------------------------
@@ -46,6 +49,8 @@ type Generator interface {
 	// Implementations of this method must return the same value if the seed
 	// value is the same.
 	Eval64(dim ...float64) float64
+	SetEval32(f func(seed int64, dim ...float32) float32) error
+	SetEval64(f func(seed int64, dim ...float64) float64) error
 }
 
 // ----------------------------------------------------------------------------
@@ -59,6 +64,8 @@ func New(noiseType Algo, seed int64) (Generator, error) {
 		return perlin.New(seed), nil
 	case OpenSimplex:
 		return opensimplex.New(seed), nil
+	case Custom:
+		return custom.New(seed), nil
 	}
 
 	return nil, errors.New("unknown noise type")

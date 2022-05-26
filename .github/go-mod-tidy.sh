@@ -27,6 +27,7 @@ go get "github.com/aquilax/go-perlin"
 go get "github.com/ojrac/opensimplex-go"
 go get "github.com/pkg/errors"
 go get "github.com/stretchr/testify"
+go get "gonum.org/v1/plot/..."
 
 echo '* Run go tidy ...'
 go mod tidy
