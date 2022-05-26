@@ -11,19 +11,19 @@ import (
 // ----------------------------------------------------------------------------
 
 // New returns a seeded Perlin noise instance.
-func New(seed int64) *Noise {
-	return &Noise{
+func New(seed int64) *Generator {
+	return &Generator{
 		Seed: seed,
 	}
 }
 
 // ----------------------------------------------------------------------------
-//  Type: Noise
+//  Type: Generator
 // ----------------------------------------------------------------------------
 
-// Noise holds parameter values for OpenSimplex noise. It is an implementation
-// of Noise interface.
-type Noise struct {
+// Generator holds parameter values for OpenSimplex noise. It is an implementation
+// of Generator interface.
+type Generator struct {
 	// Seed holds the seed value for the noise.
 	Seed int64
 }
@@ -33,7 +33,7 @@ type Noise struct {
 // ----------------------------------------------------------------------------
 
 // Eval32 returns a float32 noise value for the given coordinates.
-func (n *Noise) Eval32(dim ...float32) float32 {
+func (n *Generator) Eval32(dim ...float32) float32 {
 	switch len(dim) {
 	case 1:
 		return n.eval1D32(dim[0])
@@ -47,7 +47,7 @@ func (n *Noise) Eval32(dim ...float32) float32 {
 }
 
 // Eval64 returns a float64 noise value for the given coordinates.
-func (n *Noise) Eval64(dim ...float64) float64 {
+func (n *Generator) Eval64(dim ...float64) float64 {
 	switch len(dim) {
 	case 1:
 		return n.eval1D64(dim[0])
@@ -62,14 +62,14 @@ func (n *Noise) Eval64(dim ...float64) float64 {
 
 // SetEval32 is an implementation of noise.Generator interface. It will always
 // return an error.
-func (n *Noise) SetEval32(f func(seed int64, dim ...float32) float32) error {
-	return errors.New("float32 evaluation function is already set")
+func (n *Generator) SetEval32(f func(seed int64, dim ...float32) float32) error {
+	return errors.New("float32 evaluation function is already set. You can not set custom function in OpenSimplex type")
 }
 
 // SetEval64 is an implementation of noise.Generator interface. It will always
 // return an error.
-func (n *Noise) SetEval64(f func(seed int64, dim ...float64) float64) error {
-	return errors.New("float64 evaluation function is already set")
+func (n *Generator) SetEval64(f func(seed int64, dim ...float64) float64) error {
+	return errors.New("float64 evaluation function is already set. You can not set custom function in OpenSimplex type")
 }
 
 // ----------------------------------------------------------------------------
@@ -77,42 +77,42 @@ func (n *Noise) SetEval64(f func(seed int64, dim ...float64) float64) error {
 // ----------------------------------------------------------------------------
 
 // eval1D32 generates float32 OpenSimplex noise value from 1-dimensional coordinate.
-func (n *Noise) eval1D32(x float32) float32 {
+func (n *Generator) eval1D32(x float32) float32 {
 	p := orig.New32(n.Seed)
 
 	return p.Eval2(x, x)
 }
 
 // eval2D32 generates float32 OpenSimplex noise value from 2-dimensional coordinates.
-func (n *Noise) eval2D32(x, y float32) float32 {
+func (n *Generator) eval2D32(x, y float32) float32 {
 	p := orig.New32(n.Seed)
 
 	return p.Eval2(x, y)
 }
 
 // eval3D32 generates float32 OpenSimplex noise value from 3-dimensional coordinates.
-func (n *Noise) eval3D32(x, y, z float32) float32 {
+func (n *Generator) eval3D32(x, y, z float32) float32 {
 	p := orig.New32(n.Seed)
 
 	return p.Eval3(x, y, z)
 }
 
 // eval1D64 generates float64 OpenSimplex noise value from 1-dimensional coordinate.
-func (n *Noise) eval1D64(x float64) float64 {
+func (n *Generator) eval1D64(x float64) float64 {
 	p := orig.New(n.Seed)
 
 	return p.Eval2(x, x)
 }
 
 // eval2D64 generates float64 OpenSimplex noise value from 2-dimensional coordinates.
-func (n *Noise) eval2D64(x, y float64) float64 {
+func (n *Generator) eval2D64(x, y float64) float64 {
 	p := orig.New(n.Seed)
 
 	return p.Eval2(x, y)
 }
 
 // eval3D64 generates float64 OpenSimplex noise value from 3-dimensional coordinates.
-func (n *Noise) eval3D64(x, y, z float64) float64 {
+func (n *Generator) eval3D64(x, y, z float64) float64 {
 	p := orig.New(n.Seed)
 
 	return p.Eval3(x, y, z)

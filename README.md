@@ -211,8 +211,8 @@ for z := 0; z < frame; z++ {
 
 ### License
 
-- [Go-Noise](https://github.com/KEINOS/go-noise): [MIT](https://github.com/KEINOS/go-noise/blob/main/LICENSE), Copyright 2022- [KEINOS and the Go-Noise Contributors](https://github.com/KEINOS/go-noise/graphs/contributors).
-- [Go-Perlin](https://github.com/aquilax/go-perlin): [MIT](https://github.com/aquilax/go-perlin/blob/master/LICENSE), Copyright 2019- [Evgeniy Vasilev and his contributors](https://github.com/aquilax/go-perlin/graphs/contributors).
+- [Go-Noise](https://github.com/KEINOS/go-noise): [MIT](https://github.com/KEINOS/go-noise/blob/main/LICENSE), Copyright 2022 [KEINOS and the Go-Noise Contributors](https://github.com/KEINOS/go-noise/graphs/contributors).
+- [Go-Perlin](https://github.com/aquilax/go-perlin): [MIT](https://github.com/aquilax/go-perlin/blob/master/LICENSE), Copyright 2022 [Evgeniy Vasilev and his contributors](https://github.com/aquilax/go-perlin/graphs/contributors).
 - [OpenSimplex-Go](https://github.com/ojrac/opensimplex-go): [The Unlicense](https://github.com/ojrac/opensimplex-go/blob/main/LICENSE), By [Owen Raccuglia and his contributors](https://github.com/ojrac/opensimplex-go/graphs/contributors). Port of [Java implementation of OpenSimplex Noise](https://gist.github.com/KdotJPG/b1270127455a94ac5d19).
 - [Perlin Noise](https://en.wikipedia.org/wiki/Perlin_noise) and [Simplex Noise](https://en.wikipedia.org/wiki/Simplex_noise) are the algorithms developed by [Ken Perlin](https://en.wikipedia.org/wiki/Ken_Perlin). [OpenSimplex Noise](https://en.wikipedia.org/wiki/OpenSimplex_noise) is a [Kurt Spencer](https://github.com/KdotJPG/)'s [open sourced](https://gist.github.com/KdotJPG/b1270127455a94ac5d19#file-unlicense) [Java implementation](https://uniblock.tumblr.com/post/97868843242/noise).
 - Go modules used in this package: [go.mod](https://github.com/KEINOS/go-noise/blob/main/go.mod)

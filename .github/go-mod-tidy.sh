@@ -13,7 +13,7 @@
 
 set -eu
 
-echo '* Current Go version:' $(go version)
+echo '* Current Go version:' "$(go version)"
 
 echo '* Backup modules ...'
 mv go.mod go.mod.bak

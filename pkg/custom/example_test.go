@@ -17,6 +17,7 @@ import (
 //nolint:dupl // This example is intentionally duplicated.
 func ExampleGenerator_SetEval32() {
 	const seed = int64(12345)
+
 	var rnd *rand.Rand
 
 	// Instantiate a new noise generator.
@@ -26,6 +27,7 @@ func ExampleGenerator_SetEval32() {
 	// It generates pseudo-random numbers between -1 and 1.
 	myCustomFunc := func(seed int64, dim ...float32) float32 {
 		if rnd == nil {
+			//nolint:gosec // Use of weak random number generation is intended for simple examples.
 			rnd = rand.New(rand.NewSource(seed))
 		}
 
@@ -38,7 +40,6 @@ func ExampleGenerator_SetEval32() {
 		}
 
 		// Generate a pseudo-random number.
-		//nolint:gosec // Use of weak random number generation is intended for simple examples.
 		v := rnd.Float32()
 
 		return v*2 - 1 // Convert [0.0,1.0] to [-1.0,1.0]
@@ -67,6 +68,7 @@ func ExampleGenerator_SetEval32() {
 //nolint:dupl // This example is intentionally duplicated.
 func ExampleGenerator_SetEval64() {
 	const seed = int64(12345)
+
 	var rnd *rand.Rand
 
 	// Instantiate a new noise generator.
@@ -75,6 +77,7 @@ func ExampleGenerator_SetEval64() {
 	// User custom function.
 	myCustomFunc := func(seed int64, dim ...float64) float64 {
 		if rnd == nil {
+			//nolint:gosec // Use of weak random number generation is intended for simple examples.
 			rnd = rand.New(rand.NewSource(seed))
 		}
 
@@ -87,7 +90,6 @@ func ExampleGenerator_SetEval64() {
 		}
 
 		// Generate a pseudo-random number.
-		//nolint:gosec // Use of weak random number generation is intended for simple examples.
 		v := rnd.Float64()
 
 		return v*2 - 1 // Convert [0.0,1.0] to [-1.0,1.0]
