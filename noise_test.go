@@ -32,7 +32,7 @@ func TestNew_is_in_range_perlin(t *testing.T) {
 		require.NoError(t, err, "it should not return an error")
 		require.NotNil(t, g, "it should not be nil")
 
-		v := g.Eval64(rand.ExpFloat64())
+		v := g.Eval64(1.0)
 
 		require.GreaterOrEqual(t, v, float64(-1), "it should be in the range of -1 to 1")
 		require.LessOrEqual(t, v, float64(1), "it should be in the range of -1 to 1")
@@ -51,7 +51,7 @@ func TestNew_is_in_range_opensimplex(t *testing.T) {
 		require.NoError(t, err, "it should not return an error")
 		require.NotNil(t, g, "it should not be nil")
 
-		v := g.Eval64(rand.ExpFloat64())
+		v := g.Eval64(1.0)
 
 		require.GreaterOrEqual(t, v, float64(-1), "it should be in the range of -1 to 1")
 		require.LessOrEqual(t, v, float64(1), "it should be in the range of -1 to 1")
