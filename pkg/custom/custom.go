@@ -27,7 +27,9 @@ type Generator struct {
 func New(seed int64) *Generator {
 	// Rand that uses random values from src to generate other random values.
 	return &Generator{
-		Seed: seed,
+		func32: nil,
+		func64: nil,
+		Seed:   seed,
 	}
 }
 
