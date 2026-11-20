@@ -1,4 +1,4 @@
-[![go1.22+](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml "This package supports Go 1.22 or later")
+[![Go version](https://img.shields.io/github/go-mod/go-version/KEINOS/go-noise?label=Go)](https://github.com/KEINOS/go-noise/blob/main/go.mod)
 [![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/go-noise.svg)](https://pkg.go.dev/github.com/KEINOS/go-noise/ "View document and reference of this package")
 
 # Go-Noise
