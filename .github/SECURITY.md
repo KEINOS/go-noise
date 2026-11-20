@@ -2,12 +2,7 @@
 
 ## Supported Go Versions
 
-The following Go versions are tested regularly every week. The version of the module contained in go.mod is also updated.
-
-| Version  | Supported          |
-| :------  | :----------------: |
-| 1.17.10+ | :white_check_mark: |
-| 1.18.2+  | :white_check_mark: |
+The minimum supported version is Go 1.22. CI tests Go 1.22 and the latest stable Go release.
 
 ## Code Scaning
 

@@ -1,3 +1,4 @@
+//nolint:varnamelen // allow short variable names due to test readability
 package opensimplex_test
 
 import (
@@ -10,11 +11,14 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// samples is a list of assert values for testing from the original OpenSimplex package.
-var samples [][]float64
-
 func TestSamplesMatch(t *testing.T) {
-	samples = loadSamples(t)
+	t.Parallel()
+
+	samples := loadSamples(t)
+
+	// Fused multiply-add can round differently from the reference samples.
+	// The largest observed absolute difference on darwin/arm64 was 3.71e-13.
+	const sampleTolerance = 1e-12
 
 	n := opensimplex.New(0)
 
@@ -34,10 +38,8 @@ func TestSamplesMatch(t *testing.T) {
 			t.Fatalf("Unexpected size sample: %d", len(s))
 		}
 
-		if expected != actual {
-			t.Fatalf("Expected %v, got %v for %dD sample at %v",
-				expected, actual, len(s)-1, s[:len(s)-1])
-		}
+		require.InDelta(t, expected, actual, sampleTolerance,
+			"%dD sample at %v", len(s)-1, s[:len(s)-1])
 	}
 }
 
@@ -48,14 +50,17 @@ func TestSamplesMatch(t *testing.T) {
 func loadSamples(t *testing.T) [][]float64 {
 	t.Helper()
 
-	if len(samples) > 0 {
-		return samples
-	}
+	var samples [][]float64
 
 	f, err := os.Open("../../testdata/opensimplex.json")
 	require.NoError(t, err)
 
-	defer f.Close()
+	t.Cleanup(func() {
+		err := f.Close()
+		if err != nil {
+			t.Errorf("close sample file: %v", err)
+		}
+	})
 
 	dec := json.NewDecoder(f)
 

@@ -1,3 +1,4 @@
+// Package noise provides common interfaces and constructors for noise generators.
 package noise
 
 import (
@@ -58,6 +59,8 @@ type Generator interface {
 // ----------------------------------------------------------------------------
 
 // New returns a new noise generator.
+//
+//nolint:ireturn
 func New(noiseType Algo, seed int64) (Generator, error) {
 	switch noiseType {
 	case Perlin:
@@ -66,6 +69,8 @@ func New(noiseType Algo, seed int64) (Generator, error) {
 		return opensimplex.New(seed), nil
 	case Custom:
 		return custom.New(seed), nil
+	case Unknown:
+		//
 	}
 
 	return nil, errors.New("unknown noise type")

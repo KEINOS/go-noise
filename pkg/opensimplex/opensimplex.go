@@ -1,9 +1,15 @@
+// Package opensimplex provides OpenSimplex noise generation for one to three dimensions.
 package opensimplex
 
 import (
 	"github.com/pkg/errors"
 
 	orig "github.com/ojrac/opensimplex-go"
+)
+
+const (
+	twoDimensions   = 2
+	threeDimensions = 3
 )
 
 // ----------------------------------------------------------------------------
@@ -37,9 +43,9 @@ func (n *Generator) Eval32(dim ...float32) float32 {
 	switch len(dim) {
 	case 1:
 		return n.eval1D32(dim[0])
-	case 2:
+	case twoDimensions:
 		return n.eval2D32(dim[0], dim[1])
-	case 3:
+	case threeDimensions:
 		return n.eval3D32(dim[0], dim[1], dim[2])
 	}
 
@@ -51,9 +57,9 @@ func (n *Generator) Eval64(dim ...float64) float64 {
 	switch len(dim) {
 	case 1:
 		return n.eval1D64(dim[0])
-	case 2:
+	case twoDimensions:
 		return n.eval2D64(dim[0], dim[1])
-	case 3:
+	case threeDimensions:
 		return n.eval3D64(dim[0], dim[1], dim[2])
 	}
 
@@ -62,13 +68,13 @@ func (n *Generator) Eval64(dim ...float64) float64 {
 
 // SetEval32 is an implementation of noise.Generator interface. It will always
 // return an error.
-func (n *Generator) SetEval32(f func(seed int64, dim ...float32) float32) error {
+func (n *Generator) SetEval32(_ func(seed int64, dim ...float32) float32) error {
 	return errors.New("float32 evaluation function is already set. You can not set custom function in OpenSimplex type")
 }
 
 // SetEval64 is an implementation of noise.Generator interface. It will always
 // return an error.
-func (n *Generator) SetEval64(f func(seed int64, dim ...float64) float64) error {
+func (n *Generator) SetEval64(_ func(seed int64, dim ...float64) float64) error {
 	return errors.New("float64 evaluation function is already set. You can not set custom function in OpenSimplex type")
 }
 

@@ -1,3 +1,4 @@
+//nolint:varnamelen // allow short variable names due to test readability
 package perlin_test
 
 import (
@@ -11,6 +12,8 @@ import (
 )
 
 func Test_original_perlin(t *testing.T) {
+	t.Parallel()
+
 	const seed = 100
 
 	p := goperlin.NewPerlin(perlin.Alpha, perlin.Beta, perlin.Iteration, seed)
@@ -32,12 +35,14 @@ func Test_original_perlin(t *testing.T) {
 }
 
 func TestNew_instantiate(t *testing.T) {
+	t.Parallel()
+
 	const seed = 100
 
 	p := perlin.New(seed)
 
-	require.Equal(t, 2., p.Smoothness, "the Smoothness should be float 2 by default")
-	require.Equal(t, 2., p.Scale, "the Scale should be float 2 by default")
+	require.InDelta(t, 2., p.Smoothness, 0, "the Smoothness should be float 2 by default")
+	require.InDelta(t, 2., p.Scale, 0, "the Scale should be float 2 by default")
 	require.Equal(t, int64(seed), p.Seed, "the Seed should be int64(seed) by default")
 	require.Equal(t, perlin.Iteration, p.Iteration, "the Iteration should be perlin.Iteration by default")
 }

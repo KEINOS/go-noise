@@ -1,4 +1,4 @@
-[![go1.17+](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml "This package supports Go 1.17 or later")
+[![Go version](https://img.shields.io/github/go-mod/go-version/KEINOS/go-noise?label=Go)](https://github.com/KEINOS/go-noise/blob/main/go.mod)
 [![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/go-noise.svg)](https://pkg.go.dev/github.com/KEINOS/go-noise/ "View document and reference of this package")
 
 # Go-Noise
@@ -213,7 +213,7 @@ for z := 0; z < frame; z++ {
 
 ### Statuses
 
-[![go1.17+](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml "This package supports Go 1.17 or later")
+[![go1.22+](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/go-versions.yml "This package supports Go 1.22 or later")
 [![PlatformTests](https://github.com/KEINOS/go-noise/actions/workflows/platform-test.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/platform-test.yml "Tests on Linux, macOS, Windows platforms")
 [![golangci-lint](https://github.com/KEINOS/go-noise/actions/workflows/golangci-lint.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/golangci-lint.yml "Static analysis and lint check by golangci-lint")
 [![CodeQL](https://github.com/KEINOS/go-noise/actions/workflows/codeQL-analysis.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/codeQL-analysis.yml "Security and vulnerability analysis by CodeQL")

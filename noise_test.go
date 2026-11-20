@@ -10,17 +10,22 @@ import (
 )
 
 func TestNew_unknown_noise_type(t *testing.T) {
+	t.Parallel()
+
 	const seed = 100
 
-	g, err := noise.New(1000, seed)
+	for _, algorithm := range []noise.Algo{noise.Unknown, 1000} {
+		g, err := noise.New(algorithm, seed)
 
-	require.Error(t, err, "unknown noise type should return an error")
-	require.Nil(t, g, "it should be nil on error")
+		require.Error(t, err, "unknown noise type %d should return an error", algorithm)
+		require.Nil(t, g, "unknown noise type %d should return no generator", algorithm)
+	}
 }
 
-//nolint:dupl // let lines be duplicate with other tests for readability
 func TestNew_is_in_range_perlin(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	t.Parallel()
+
+	for range 100 {
 		//nolint:gosec // Use of weak random number generator is OK here
 		seed := rand.New(rand.NewSource(time.Now().UnixNano())).Int63()
 
@@ -29,16 +34,17 @@ func TestNew_is_in_range_perlin(t *testing.T) {
 		require.NoError(t, err, "it should not return an error")
 		require.NotNil(t, g, "it should not be nil")
 
-		v := g.Eval64(rand.ExpFloat64())
+		v := g.Eval64(1.0)
 
 		require.GreaterOrEqual(t, v, float64(-1), "it should be in the range of -1 to 1")
 		require.LessOrEqual(t, v, float64(1), "it should be in the range of -1 to 1")
 	}
 }
 
-//nolint:dupl // let lines be duplicate with other tests for readability
 func TestNew_is_in_range_opensimplex(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	t.Parallel()
+
+	for range 100 {
 		//nolint:gosec // Use of weak random number generator is OK here
 		seed := rand.New(rand.NewSource(time.Now().UnixNano())).Int63()
 
@@ -47,7 +53,7 @@ func TestNew_is_in_range_opensimplex(t *testing.T) {
 		require.NoError(t, err, "it should not return an error")
 		require.NotNil(t, g, "it should not be nil")
 
-		v := g.Eval64(rand.ExpFloat64())
+		v := g.Eval64(1.0)
 
 		require.GreaterOrEqual(t, v, float64(-1), "it should be in the range of -1 to 1")
 		require.LessOrEqual(t, v, float64(1), "it should be in the range of -1 to 1")

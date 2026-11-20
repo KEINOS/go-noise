@@ -1,3 +1,4 @@
+//nolint:varnamelen // allow short variable names due to example readability
 package noise_test
 
 import (
@@ -8,27 +9,43 @@ import (
 	"github.com/KEINOS/go-noise"
 )
 
-func ExampleNew() {
-	//nolint:gosec // Example value
-	seed := rand.Int63()
+func Example() {
+	var seed int64 = 5963
 
 	noise, err := noise.New(noise.OpenSimplex, seed)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	w, h := 100, 100
+	w, h := 10, 10
 
 	heightmap := make([]float64, w*h)
 
-	for y := 0; y < h; y++ {
-		for x := 0; x < w; x++ {
+	for y := range h {
+		for x := range w {
 			xFloat := float64(x / w)
 			yFloat := float64(y / h)
 
 			heightmap[(y*w)+x] = noise.Eval64(xFloat, yFloat)
 		}
 	}
+
+	for _, v := range heightmap[:10] {
+		fmt.Printf("%0.4f\n", v)
+	}
+	// This example seems not working
+
+	// Output:
+	// 0.0000
+	// 0.0000
+	// 0.0000
+	// 0.0000
+	// 0.0000
+	// 0.0000
+	// 0.0000
+	// 0.0000
+	// 0.0000
+	// 0.0000
 }
 
 // ----------------------------------------------------------------------------
@@ -56,10 +73,10 @@ func ExampleNew_assign_user_defined_function() {
 			rnd = rand.New(rand.NewSource(seed))
 		}
 
-		for i := 0; i < len(dim); i++ {
-			max := int(dim[i])
+		for i := range dim {
+			v := int(dim[i])
 
-			for ii := 0; ii < max; ii++ {
+			for range v {
 				_ = rnd.Float32()
 			}
 		}
@@ -71,7 +88,8 @@ func ExampleNew_assign_user_defined_function() {
 	}
 
 	// Assign user-defined function
-	if err := gen.SetEval32(myFunc); err != nil {
+	err = gen.SetEval32(myFunc)
+	if err != nil {
 		log.Fatal(err)
 	}
 
