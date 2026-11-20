@@ -6,6 +6,11 @@ import (
 	orig "github.com/ojrac/opensimplex-go"
 )
 
+const (
+	twoDimensions   = 2
+	threeDimensions = 3
+)
+
 // ----------------------------------------------------------------------------
 //  Constructor
 // ----------------------------------------------------------------------------
@@ -37,9 +42,9 @@ func (n *Generator) Eval32(dim ...float32) float32 {
 	switch len(dim) {
 	case 1:
 		return n.eval1D32(dim[0])
-	case 2:
+	case twoDimensions:
 		return n.eval2D32(dim[0], dim[1])
-	case 3:
+	case threeDimensions:
 		return n.eval3D32(dim[0], dim[1], dim[2])
 	}
 
@@ -51,9 +56,9 @@ func (n *Generator) Eval64(dim ...float64) float64 {
 	switch len(dim) {
 	case 1:
 		return n.eval1D64(dim[0])
-	case 2:
+	case twoDimensions:
 		return n.eval2D64(dim[0], dim[1])
-	case 3:
+	case threeDimensions:
 		return n.eval3D64(dim[0], dim[1], dim[2])
 	}
 

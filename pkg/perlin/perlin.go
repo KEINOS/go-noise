@@ -12,6 +12,9 @@ import (
 )
 
 const (
+	twoDimensions   = 2
+	threeDimensions = 3
+
 	// Alpha is the default smoothness of Perlin noise.
 	Alpha = 2.
 	// Beta is the default scale of Perlin noise.
@@ -64,9 +67,9 @@ func (n *Generator) Eval32(dim ...float32) float32 {
 	switch len(dim) {
 	case 1:
 		return float32(n.eval1D(float64(dim[0])))
-	case 2:
+	case twoDimensions:
 		return float32(n.eval2D(float64(dim[0]), float64(dim[1])))
-	case 3:
+	case threeDimensions:
 		return float32(n.eval3D(float64(dim[0]), float64(dim[1]), float64(dim[2])))
 	}
 
@@ -78,9 +81,9 @@ func (n *Generator) Eval64(dim ...float64) float64 {
 	switch len(dim) {
 	case 1:
 		return n.eval1D(dim[0])
-	case 2:
+	case twoDimensions:
 		return n.eval2D(dim[0], dim[1])
-	case 3:
+	case threeDimensions:
 		return n.eval3D(dim[0], dim[1], dim[2])
 	}
 
