@@ -11,11 +11,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// samples is a list of assert values for testing from the original OpenSimplex package.
-var samples [][]float64
-
 func TestSamplesMatch(t *testing.T) {
-	samples = loadSamples(t)
+	samples := loadSamples(t)
 
 	// Fused multiply-add can round differently from the reference samples.
 	// The largest observed absolute difference on darwin/arm64 was 3.71e-13.
@@ -51,9 +48,7 @@ func TestSamplesMatch(t *testing.T) {
 func loadSamples(t *testing.T) [][]float64 {
 	t.Helper()
 
-	if len(samples) > 0 {
-		return samples
-	}
+	var samples [][]float64
 
 	f, err := os.Open("../../testdata/opensimplex.json")
 	require.NoError(t, err)
