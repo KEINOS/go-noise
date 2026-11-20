@@ -14,10 +14,12 @@ func TestNew_unknown_noise_type(t *testing.T) {
 
 	const seed = 100
 
-	g, err := noise.New(1000, seed)
+	for _, algorithm := range []noise.Algo{noise.Unknown, 1000} {
+		g, err := noise.New(algorithm, seed)
 
-	require.Error(t, err, "unknown noise type should return an error")
-	require.Nil(t, g, "it should be nil on error")
+		require.Error(t, err, "unknown noise type %d should return an error", algorithm)
+		require.Nil(t, g, "unknown noise type %d should return no generator", algorithm)
+	}
 }
 
 func TestNew_is_in_range_perlin(t *testing.T) {
