@@ -41,8 +41,8 @@ func TestNew_instantiate(t *testing.T) {
 
 	p := perlin.New(seed)
 
-	require.Equal(t, 2., p.Smoothness, "the Smoothness should be float 2 by default")
-	require.Equal(t, 2., p.Scale, "the Scale should be float 2 by default")
+	require.InDelta(t, 2., p.Smoothness, 0, "the Smoothness should be float 2 by default")
+	require.InDelta(t, 2., p.Scale, 0, "the Scale should be float 2 by default")
 	require.Equal(t, int64(seed), p.Seed, "the Seed should be int64(seed) by default")
 	require.Equal(t, perlin.Iteration, p.Iteration, "the Iteration should be perlin.Iteration by default")
 }
