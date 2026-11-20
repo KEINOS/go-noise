@@ -16,6 +16,10 @@ var samples [][]float64
 func TestSamplesMatch(t *testing.T) {
 	samples = loadSamples(t)
 
+	// Fused multiply-add can round differently from the reference samples.
+	// The largest observed absolute difference on darwin/arm64 was 3.71e-13.
+	const sampleTolerance = 1e-12
+
 	n := opensimplex.New(0)
 
 	for _, s := range samples {
@@ -34,10 +38,8 @@ func TestSamplesMatch(t *testing.T) {
 			t.Fatalf("Unexpected size sample: %d", len(s))
 		}
 
-		if expected != actual {
-			t.Fatalf("Expected %v, got %v for %dD sample at %v",
-				expected, actual, len(s)-1, s[:len(s)-1])
-		}
+		require.InDelta(t, expected, actual, sampleTolerance,
+			"%dD sample at %v", len(s)-1, s[:len(s)-1])
 	}
 }
 
