@@ -20,13 +20,13 @@ jobs:
           go-version: '1.22.x'
       - name: Run unit test
         if: runner.os != 'macOS'
-        run: go test -mod=readonly -v ./...
+        run: go test -mod=readonly -v ./... ./_example/3d
       - name: Run unit test on macOS
         if: runner.os == 'macOS'
         # Go 1.22 needs the system linker to add LC_UUID on macOS 26.
         env:
           CGO_ENABLED: '1'
-        run: go test -mod=readonly -v -ldflags=-linkmode=external ./...
+        run: go test -mod=readonly -v -ldflags=-linkmode=external ./... ./_example/3d
       - name: Build the 3D example
         shell: bash
         run: go build -mod=readonly -o "$RUNNER_TEMP/go-noise-3d" ./_example/3d
