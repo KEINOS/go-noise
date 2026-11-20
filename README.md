@@ -27,11 +27,11 @@ yy := n.Eval64(x / smoothness) // yy is between -1.0 and 1.0 of float64
 y := (yy + 1) / 2 * 500        // y is between 0 and 500
 ```
 
-![](./_example/2d/2d_perlin.png)
-![](./_example/2d/2d_opensimplex.png)
-![](./_example/2d/2d_pseudorandom.png)
+![Perlin noise line graph](./_example/2d/2d_perlin.png)
+![OpenSimplex noise line graph](./_example/2d/2d_opensimplex.png)
+![Custom pseudorandom noise line graph](./_example/2d/2d_pseudorandom.png)
 
-- [Source](./_example/2d)
+- [Source](./_example/2d) and [run instructions](./_example/README.md#2d)
 
 ## 2D Example
 
@@ -57,7 +57,7 @@ n, err := noise.New(noise.Perlin, seed)
 v := n.Eval64(x, y, z) // v is between -1.0 and 1.0 of float64
 ```
 
-![](./_example/3d/animation_perlin.gif)
+![Perlin noise animation](./_example/3d/animation_perlin.gif)
 
 - [Source](./_example/3d)
 
@@ -69,7 +69,7 @@ n, err := noise.New(noise.OpenSimplex, seed)
 v := n.Eval64(x, y, z) // v is between -1.0 and 1.0 of float64
 ```
 
-![](./_example/3d/animation_opensimplex.gif)
+![OpenSimplex noise animation](./_example/3d/animation_opensimplex.gif)
 
 - [Source](./_example/3d)
 
@@ -94,11 +94,11 @@ noise.New(noiseType noise.Algo, seed int64) (noise.Generator, error)
 ```
 
 - Choises of `noiseType`
-    - `noise.Perlin`: Uses the Perlin noise algorithm to generate the noise value.
-    - `noise.OpenSimplex`: Uses the OpenSimplex noise algorithm to generate the noise value.
-    - `noise.Custom`: Uses the user-defined function to generate noise value.
+  - `noise.Perlin`: Uses the Perlin noise algorithm to generate the noise value.
+  - `noise.OpenSimplex`: Uses the OpenSimplex noise algorithm to generate the noise value.
+  - `noise.Custom`: Uses the user-defined function to generate noise value.
 - `seed`
-    - Seed is like pattern ID. If the seed values are the same, the noise pattern will also be the same.
+  - Seed is like pattern ID. If the seed values are the same, the noise pattern will also be the same.
 
 ```go
 const seed = 100
@@ -106,12 +106,14 @@ const seed = 100
 // Noise generator for Perlin noise
 genNoise, err := noise.New(noise.Perlin, seed)
 ```
+
 ```go
 const seed = 100
 
 // Noise generator for OpenSimplex noise
 genNoise, err := noise.New(noise.OpenSimplex, seed)
 ```
+
 ```go
 const seed = 100
 
@@ -137,6 +139,7 @@ c := genNoise.Eval32(x, y, z) // 3D noise. Obtain noise value at x, y, z.
 // a, b, c, x, y, z are float32.
 // Noises a, b, c are between -1.0 and 1.0.
 ```
+
 ```go
 a := genNoise.Eval64(x)       // 1D noise. Obtain noise value at x.
 b := genNoise.Eval64(x, y)    // 2D noise. Obtain noise value at x, y.
@@ -199,17 +202,18 @@ for z := 0; z < frame; z++ {
 [![PR](https://img.shields.io/github/issues-pr/KEINOS/go-noise?color=lightblue&logo=github)](https://github.com/KEINOS/go-noise/pulls "Pull Requests")
 
 - Pull Request:
-    - **Any PR for improvement is welcome!** We will merge it as soon as it passes the CIs and not a prank-kind implementation. ;-)
-    - PR Branch: `main`
-        - It is recommended to do a "[Draft-PR](https://github.blog/2019-02-14-introducing-draft-pull-requests/)" before the actual implementation if the fix is big. However, feel free to discard it as well!
-    - CI/CD: [Github Actions](./.github/workflows)
-        - `go test ./...`
-        - `golangci-lint run`
-        - `golint ./...`
-        - Code coverage check: 100% of coverage.
+  - **Any PR for improvement is welcome!** We will merge it as soon as it passes the CIs and not a prank-kind implementation. ;-)
+  - PR Branch: `main`
+    - It is recommended to do a "[Draft-PR](https://github.blog/2019-02-14-introducing-draft-pull-requests/)" before the actual implementation if the fix is big. However, feel free to discard it as well!
+  - CI/CD: [Github Actions](./.github/workflows)
+    - `go test -mod=readonly ./... ./_example/3d`
+    - Build the 2D example from its module with `go build -mod=readonly .`.
+    - `golangci-lint run`
+    - `golint ./...`
+    - Code coverage check: 100% of coverage.
 - Bug reports:
-    - [Issues](https://github.com/KEINOS/go-noise/issues)
-    - If possible, please attach a simple reproduction code sample of the error. PRs for the fixes are much appreciated. 🙏
+  - [Issues](https://github.com/KEINOS/go-noise/issues)
+  - If possible, please attach a simple reproduction code sample of the error. PRs for the fixes are much appreciated. 🙏
 
 ### Statuses
 
@@ -218,13 +222,11 @@ for z := 0; z < frame; z++ {
 [![golangci-lint](https://github.com/KEINOS/go-noise/actions/workflows/golangci-lint.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/golangci-lint.yml "Static analysis and lint check by golangci-lint")
 [![CodeQL](https://github.com/KEINOS/go-noise/actions/workflows/codeQL-analysis.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/codeQL-analysis.yml "Security and vulnerability analysis by CodeQL")
 [![codecov](https://codecov.io/gh/KEINOS/go-noise/branch/main/graph/badge.svg?token=cFoXdcwtaj)](https://codecov.io/gh/KEINOS/go-noise "Code coverage")
-[![Go Report Card](https://goreportcard.com/badge/github.com/KEINOS/go-noise)](https://goreportcard.com/report/github.com/KEINOS/go-noise "Code quality")
-[![Weekly Update](https://github.com/KEINOS/go-noise/actions/workflows/weekly-update.yml/badge.svg)](https://github.com/KEINOS/go-noise/actions/workflows/weekly-update.yml "Update go.mod to latest version")
 
 ### License
 
 - [Go-Noise](https://github.com/KEINOS/go-noise): [MIT](https://github.com/KEINOS/go-noise/blob/main/LICENSE), Copyright 2022 [KEINOS and the Go-Noise Contributors](https://github.com/KEINOS/go-noise/graphs/contributors).
-    - [Go-Perlin](https://github.com/aquilax/go-perlin): [MIT](https://github.com/aquilax/go-perlin/blob/master/LICENSE), Copyright 2022 [Evgeniy Vasilev and his contributors](https://github.com/aquilax/go-perlin/graphs/contributors).
-    - [OpenSimplex-Go](https://github.com/ojrac/opensimplex-go): [The Unlicense](https://github.com/ojrac/opensimplex-go/blob/main/LICENSE), By [Owen Raccuglia and his contributors](https://github.com/ojrac/opensimplex-go/graphs/contributors). Port of [Java implementation of OpenSimplex Noise](https://gist.github.com/KdotJPG/b1270127455a94ac5d19).
-    - Other Go modules used in this package: [go.mod](https://github.com/KEINOS/go-noise/blob/main/go.mod)
+  - [Go-Perlin](https://github.com/aquilax/go-perlin): [MIT](https://github.com/aquilax/go-perlin/blob/master/LICENSE), Copyright 2022 [Evgeniy Vasilev and his contributors](https://github.com/aquilax/go-perlin/graphs/contributors).
+  - [OpenSimplex-Go](https://github.com/ojrac/opensimplex-go): [The Unlicense](https://github.com/ojrac/opensimplex-go/blob/main/LICENSE), By [Owen Raccuglia and his contributors](https://github.com/ojrac/opensimplex-go/graphs/contributors). Port of [Java implementation of OpenSimplex Noise](https://gist.github.com/KdotJPG/b1270127455a94ac5d19).
+  - Other Go modules used in this package: [go.mod](https://github.com/KEINOS/go-noise/blob/main/go.mod)
 - [Perlin Noise](https://en.wikipedia.org/wiki/Perlin_noise) and [Simplex Noise](https://en.wikipedia.org/wiki/Simplex_noise) are the algorithms developed by [Ken Perlin](https://en.wikipedia.org/wiki/Ken_Perlin). [OpenSimplex Noise](https://en.wikipedia.org/wiki/OpenSimplex_noise) is a [Kurt Spencer](https://github.com/KdotJPG/)'s [open sourced](https://gist.github.com/KdotJPG/b1270127455a94ac5d19#file-unlicense) [Java implementation](https://uniblock.tumblr.com/post/97868843242/noise).
