@@ -46,10 +46,9 @@ func (n *Generator) Eval64(dim ...float64) float64 {
 // SetEval32 sets the user-defined noise generator function for float32.
 func (n *Generator) SetEval32(fn func(seed int64, dim ...float32) float32) error {
 	// Check the function.
-	rand.Seed(time.Now().UnixNano())
-
-	//nolint:gosec // Use of weak random number generation is intended here.
-	dummyInput := rand.Float32()
+	//nolint:gosec // The sample only validates a user-provided function's output.
+	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
+	dummyInput := rng.Float32()
 
 	if v := fn(n.Seed, dummyInput, dummyInput); v <= -1 || 1 < v {
 		return errors.New("the function must return a value between -1 and 1")
@@ -63,10 +62,9 @@ func (n *Generator) SetEval32(fn func(seed int64, dim ...float32) float32) error
 // SetEval64 sets the user-defined noise generator function for float64.
 func (n *Generator) SetEval64(fn func(seed int64, dim ...float64) float64) error {
 	// Check the function.
-	rand.Seed(time.Now().UnixNano())
-
-	//nolint:gosec // Use of weak random number generation is intended here.
-	dummyInput := rand.Float64()
+	//nolint:gosec // The sample only validates a user-provided function's output.
+	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
+	dummyInput := rng.Float64()
 
 	if v := fn(n.Seed, dummyInput, dummyInput); v <= -1 || 1 < v {
 		return errors.New("the function must return a value between -1 and 1")
