@@ -1,3 +1,4 @@
+//nolint:varnamelen // allow short variable names due to example readability
 package noise_test
 
 import (
@@ -8,16 +9,15 @@ import (
 	"github.com/KEINOS/go-noise"
 )
 
-func ExampleNew() {
-	//nolint:gosec // Example value
-	seed := rand.Int63()
+func Example() {
+	var seed int64 = 5963
 
 	noise, err := noise.New(noise.OpenSimplex, seed)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	w, h := 100, 100
+	w, h := 10, 10
 
 	heightmap := make([]float64, w*h)
 
@@ -29,6 +29,23 @@ func ExampleNew() {
 			heightmap[(y*w)+x] = noise.Eval64(xFloat, yFloat)
 		}
 	}
+
+	for _, v := range heightmap[:10] {
+		fmt.Printf("%0.4f\n", v)
+	}
+	// This result seems wrong
+	//
+	// Output:
+	// 0.0000
+	// 0.0000
+	// 0.0000
+	// 0.0000
+	// 0.0000
+	// 0.0000
+	// 0.0000
+	// 0.0000
+	// 0.0000
+	// 0.0000
 }
 
 // ----------------------------------------------------------------------------

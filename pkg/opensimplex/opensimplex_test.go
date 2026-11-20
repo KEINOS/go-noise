@@ -1,3 +1,4 @@
+//nolint:varnamelen // allow short variable names due to test readability
 package opensimplex_test
 
 import (

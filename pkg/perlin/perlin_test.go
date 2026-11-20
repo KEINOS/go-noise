@@ -1,3 +1,4 @@
+//nolint:varnamelen // allow short variable names due to test readability
 package perlin_test
 
 import (

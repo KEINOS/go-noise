@@ -89,13 +89,13 @@ func (n *Generator) Eval64(dim ...float64) float64 {
 
 // SetEval32 is an implementation of noise.Generator interface. It will always
 // return an error.
-func (n *Generator) SetEval32(f func(seed int64, dim ...float32) float32) error {
+func (n *Generator) SetEval32(_ func(seed int64, dim ...float32) float32) error {
 	return errors.New("float32 evaluation function is already set. You can not set custom function in Perlin type")
 }
 
 // SetEval64 is an implementation of noise.Generator interface. It will always
 // return an error.
-func (n *Generator) SetEval64(f func(seed int64, dim ...float64) float64) error {
+func (n *Generator) SetEval64(_ func(seed int64, dim ...float64) float64) error {
 	return errors.New("float64 evaluation function is already set. You can not set custom function in Perlin type")
 }
 
