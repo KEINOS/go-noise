@@ -142,7 +142,10 @@ func NoiseToUint8(in float64) uint8 {
 }
 
 func SaveImgGIF(img *gif.GIF, pathFile string) error {
-	f, _ := os.OpenFile(pathFile, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
+	f, err := os.OpenFile(pathFile, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
+	if err != nil {
+		return fmt.Errorf("open GIF output: %w", err)
+	}
 	defer f.Close()
 
 	if err := gif.EncodeAll(f, img); err != nil {
