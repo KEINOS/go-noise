@@ -14,34 +14,27 @@
 #     * You need add the "repo" scope to the token but no more.
 # =============================================================================
 name: Weekly Update
-
 on:
   workflow_dispatch:
   schedule:
     # Runs at 20:30 UTC on Sun (JST: AM 05:30 on every Monday)
     - cron: '30 20 * * SUN'
-
 jobs:
   automated_build:
     runs-on: ubuntu-latest
-
     permissions:
       contents: read
       packages: write
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-
+        uses: actions/checkout@v7.0.1
       - name: Update go.mod and run tests
         run: |
           set -eu
-          docker-compose --file ./.github/docker-compose.yml run tidy
-          docker-compose --file ./.github/docker-compose.yml run v1_17
-          docker-compose --file ./.github/docker-compose.yml run v1_18
-          docker-compose --file ./.github/docker-compose.yml run latest
-
+          docker compose --file .github/docker-compose.yml run --rm -T tidy
+          docker compose --file .github/docker-compose.yml run --rm -T v1_22
+          docker compose --file .github/docker-compose.yml run --rm -T latest
       - name: Create Pull Request on Change
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v8.1.3
         with:
-            token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}

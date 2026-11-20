@@ -1,25 +1,28 @@
 # This workflow updates the code coverage of Codecov.
 # It runs the unit test and pushes the measured code coverage analysis.
 name: "Codecov"
-
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ main ]
-
+    branches: [main]
+env:
+  GOTOOLCHAIN: local
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 2
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v7.1.0
         with:
-          go-version: '1.17'
+          go-version: '1.22.x'
       - name: Run coverage
         run: go test -coverprofile=coverage.out -covermode=atomic ./...
       - name: Upload coverage to Codecov
-        run: bash <(curl -s https://codecov.io/bash)
+        uses: codecov/codecov-action@v7.1.1
+        with:
+          files: ./coverage.out
+          token: ${{ secrets.CODECOV_TOKEN }}

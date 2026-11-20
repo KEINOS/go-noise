@@ -1,13 +1,15 @@
 # =============================================================================
-#  Test Container for Vaious Go Versions
+#  Test Container for Various Go Versions
 # =============================================================================
 # Default version
-ARG VARIANT="1.17-alpine"
+ARG VARIANT="1.22-alpine"
 
 # -----------------------------------------------------------------------------
 #  Main Stage
 # -----------------------------------------------------------------------------
 FROM golang:${VARIANT}
+
+ENV GOTOOLCHAIN=local
 
 RUN apk add --no-cache \
     mesa-dev \
@@ -17,4 +19,4 @@ RUN apk add --no-cache \
 
 WORKDIR /workspaces
 
-ENTRYPOINT go mod download && go test -race ./...
+ENTRYPOINT ["sh", "-c", "go mod download && go test -mod=readonly -race ./..."]
