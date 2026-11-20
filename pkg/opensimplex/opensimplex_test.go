@@ -58,7 +58,11 @@ func loadSamples(t *testing.T) [][]float64 {
 	f, err := os.Open("../../testdata/opensimplex.json")
 	require.NoError(t, err)
 
-	defer f.Close()
+	t.Cleanup(func() {
+		if err := f.Close(); err != nil {
+			t.Errorf("close sample file: %v", err)
+		}
+	})
 
 	dec := json.NewDecoder(f)
 
