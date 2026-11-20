@@ -88,7 +88,8 @@ func ExampleNew_assign_user_defined_function() {
 	}
 
 	// Assign user-defined function
-	if err := gen.SetEval32(myFunc); err != nil {
+	err = gen.SetEval32(myFunc)
+	if err != nil {
 		log.Fatal(err)
 	}
 
