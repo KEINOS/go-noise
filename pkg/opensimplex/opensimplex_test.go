@@ -56,7 +56,8 @@ func loadSamples(t *testing.T) [][]float64 {
 	require.NoError(t, err)
 
 	t.Cleanup(func() {
-		if err := f.Close(); err != nil {
+		err := f.Close()
+		if err != nil {
 			t.Errorf("close sample file: %v", err)
 		}
 	})
