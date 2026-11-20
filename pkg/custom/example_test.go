@@ -32,9 +32,9 @@ func ExampleGenerator_SetEval32() {
 		}
 
 		for i := range dim {
-			max := int(dim[i])
+			steps := int(dim[i])
 
-			for range max {
+			for range steps {
 				_ = rnd.Float32()
 			}
 		}
@@ -83,9 +83,9 @@ func ExampleGenerator_SetEval64() {
 		}
 
 		for i := range dim {
-			max := int(dim[i])
+			steps := int(dim[i])
 
-			for range max {
+			for range steps {
 				_ = rnd.Float64()
 			}
 		}

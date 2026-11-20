@@ -188,7 +188,7 @@ func ExampleGenerator_SetEval32() {
 
 	p := perlin.New(seed)
 
-	err := p.SetEval32(func(seed int64, dim ...float32) float32 {
+	err := p.SetEval32(func(_ int64, _ ...float32) float32 {
 		return 0
 	})
 
@@ -209,7 +209,7 @@ func ExampleGenerator_SetEval64() {
 	p := perlin.New(seed)
 
 	// User-defined functions cannot be assigned to Perlin types. Use Custom type instead.
-	err := p.SetEval64(func(seed int64, dim ...float64) float64 {
+	err := p.SetEval64(func(_ int64, _ ...float64) float64 {
 		return 0
 	})
 	if err == nil {

@@ -1,3 +1,4 @@
+// Package noise provides common interfaces and constructors for noise generators.
 package noise
 
 import (

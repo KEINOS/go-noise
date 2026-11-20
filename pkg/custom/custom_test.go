@@ -32,7 +32,7 @@ func TestSetEval32_function_returns_out_of_range(t *testing.T) {
 
 	gen := New(12345)
 
-	err := gen.SetEval32(func(seed int64, dim ...float32) float32 {
+	err := gen.SetEval32(func(_ int64, _ ...float32) float32 {
 		return -2.0
 	})
 
@@ -45,7 +45,7 @@ func TestSetEval64_function_returns_out_of_range(t *testing.T) {
 
 	gen := New(12345)
 
-	err := gen.SetEval64(func(seed int64, dim ...float64) float64 {
+	err := gen.SetEval64(func(_ int64, _ ...float64) float64 {
 		return -2.0
 	})
 
