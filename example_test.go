@@ -33,8 +33,8 @@ func Example() {
 	for _, v := range heightmap[:10] {
 		fmt.Printf("%0.4f\n", v)
 	}
-	// This result seems wrong
-	//
+	// This example seems not working
+
 	// Output:
 	// 0.0000
 	// 0.0000

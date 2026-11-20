@@ -10,6 +10,8 @@ import (
 )
 
 func TestNew_unknown_noise_type(t *testing.T) {
+	t.Parallel()
+
 	const seed = 100
 
 	g, err := noise.New(1000, seed)
@@ -19,6 +21,8 @@ func TestNew_unknown_noise_type(t *testing.T) {
 }
 
 func TestNew_is_in_range_perlin(t *testing.T) {
+	t.Parallel()
+
 	for range 100 {
 		//nolint:gosec // Use of weak random number generator is OK here
 		seed := rand.New(rand.NewSource(time.Now().UnixNano())).Int63()
@@ -36,6 +40,8 @@ func TestNew_is_in_range_perlin(t *testing.T) {
 }
 
 func TestNew_is_in_range_opensimplex(t *testing.T) {
+	t.Parallel()
+
 	for range 100 {
 		//nolint:gosec // Use of weak random number generator is OK here
 		seed := rand.New(rand.NewSource(time.Now().UnixNano())).Int63()
