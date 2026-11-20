@@ -1,0 +1,11 @@
+extensions:
+  - yaml
+  - yml
+line_ending: lf
+
+formatter:
+  type: basic
+  indent: 2
+  line_ending: lf
+  eof_newline: true
+
