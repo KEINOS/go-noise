@@ -89,7 +89,7 @@ func CreatePaletteGray() color.Palette {
 
 // GenNoiseImage is the actual function which generates the image with the provided
 // noise generator.
-func GenNoiseImage(gen noise.Noise, pathFile string) error {
+func GenNoiseImage(gen noise.Generator, pathFile string) error {
 	// Define boundary of image
 	myBound := image.Rectangle{Max: image.Point{X: width, Y: height}}
 	// Create a color palette
