@@ -14,7 +14,7 @@ import (
 // generator. Then the `custom.SetEval32` function is used to set the user-
 // defined function.
 //
-//nolint:dupl // This example is intentionally duplicated.
+
 func ExampleGenerator_SetEval32() {
 	const seed = int64(12345)
 
@@ -31,10 +31,10 @@ func ExampleGenerator_SetEval32() {
 			rnd = rand.New(rand.NewSource(seed))
 		}
 
-		for i := 0; i < len(dim); i++ {
+		for i := range dim {
 			max := int(dim[i])
 
-			for ii := 0; ii < max; ii++ {
+			for range max {
 				_ = rnd.Float32()
 			}
 		}
@@ -48,7 +48,8 @@ func ExampleGenerator_SetEval32() {
 	// Set the user-defined function.
 	// The function must return a value between -1 and 1. Same seed values should
 	// generate the same pseudo-random sequence.
-	if err := genNoise.SetEval32(myCustomFunc); err != nil {
+	err := genNoise.SetEval32(myCustomFunc)
+	if err != nil {
 		log.Fatal(err)
 	}
 
@@ -65,7 +66,7 @@ func ExampleGenerator_SetEval32() {
 // generator. Then the `custom.SetEval642` function is used to set the user-
 // defined function.
 //
-//nolint:dupl // This example is intentionally duplicated.
+
 func ExampleGenerator_SetEval64() {
 	const seed = int64(12345)
 
@@ -81,10 +82,10 @@ func ExampleGenerator_SetEval64() {
 			rnd = rand.New(rand.NewSource(seed))
 		}
 
-		for i := 0; i < len(dim); i++ {
+		for i := range dim {
 			max := int(dim[i])
 
-			for ii := 0; ii < max; ii++ {
+			for range max {
 				_ = rnd.Float64()
 			}
 		}
@@ -98,7 +99,8 @@ func ExampleGenerator_SetEval64() {
 	// Set the user-defined function.
 	// The function must return a value between -1 and 1. Same seed values should
 	// generate the same pseudo-random sequence.
-	if err := genNoise.SetEval64(myCustomFunc); err != nil {
+	err := genNoise.SetEval64(myCustomFunc)
+	if err != nil {
 		log.Fatal(err)
 	}
 

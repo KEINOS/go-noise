@@ -211,7 +211,6 @@ func ExampleGenerator_SetEval64() {
 	err := p.SetEval64(func(seed int64, dim ...float64) float64 {
 		return 0
 	})
-
 	if err == nil {
 		log.Fatal("Perlin type should return an error on SetEval32")
 	}

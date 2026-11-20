@@ -201,7 +201,6 @@ func ExampleGenerator_SetEval32() {
 	err := p.SetEval32(func(seed int64, dim ...float32) float32 {
 		return 0
 	})
-
 	if err == nil {
 		log.Fatal("OpenSimplex type should return an error on SetEval32")
 	}
@@ -221,7 +220,6 @@ func ExampleGenerator_SetEval64() {
 	err := p.SetEval64(func(seed int64, dim ...float64) float64 {
 		return 0
 	})
-
 	if err == nil {
 		log.Fatal("OpenSimplex type should return an error on SetEval32")
 	}

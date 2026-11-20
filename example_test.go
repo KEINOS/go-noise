@@ -21,8 +21,8 @@ func ExampleNew() {
 
 	heightmap := make([]float64, w*h)
 
-	for y := 0; y < h; y++ {
-		for x := 0; x < w; x++ {
+	for y := range h {
+		for x := range w {
 			xFloat := float64(x / w)
 			yFloat := float64(y / h)
 
@@ -56,10 +56,10 @@ func ExampleNew_assign_user_defined_function() {
 			rnd = rand.New(rand.NewSource(seed))
 		}
 
-		for i := 0; i < len(dim); i++ {
+		for i := range dim {
 			max := int(dim[i])
 
-			for ii := 0; ii < max; ii++ {
+			for range max {
 				_ = rnd.Float32()
 			}
 		}

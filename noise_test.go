@@ -18,9 +18,8 @@ func TestNew_unknown_noise_type(t *testing.T) {
 	require.Nil(t, g, "it should be nil on error")
 }
 
-//nolint:dupl // let lines be duplicate with other tests for readability
 func TestNew_is_in_range_perlin(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		//nolint:gosec // Use of weak random number generator is OK here
 		seed := rand.New(rand.NewSource(time.Now().UnixNano())).Int63()
 
@@ -36,9 +35,8 @@ func TestNew_is_in_range_perlin(t *testing.T) {
 	}
 }
 
-//nolint:dupl // let lines be duplicate with other tests for readability
 func TestNew_is_in_range_opensimplex(t *testing.T) {
-	for i := 0; i < 100; i++ {
+	for range 100 {
 		//nolint:gosec // Use of weak random number generator is OK here
 		seed := rand.New(rand.NewSource(time.Now().UnixNano())).Int63()
 
