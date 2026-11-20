@@ -74,9 +74,9 @@ func ExampleNew_assign_user_defined_function() {
 		}
 
 		for i := range dim {
-			max := int(dim[i])
+			v := int(dim[i])
 
-			for range max {
+			for range v {
 				_ = rnd.Float32()
 			}
 		}
