@@ -12,6 +12,8 @@ import (
 )
 
 func TestSamplesMatch(t *testing.T) {
+	t.Parallel()
+
 	samples := loadSamples(t)
 
 	// Fused multiply-add can round differently from the reference samples.

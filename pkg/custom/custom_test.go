@@ -8,6 +8,8 @@ import (
 )
 
 func TestEval32_no_function_assigned(t *testing.T) {
+	t.Parallel()
+
 	gen := New(12345)
 
 	require.Panics(t, func() {
@@ -16,6 +18,8 @@ func TestEval32_no_function_assigned(t *testing.T) {
 }
 
 func TestEval64_no_function_assigned(t *testing.T) {
+	t.Parallel()
+
 	gen := New(12345)
 
 	require.Panics(t, func() {
@@ -24,6 +28,8 @@ func TestEval64_no_function_assigned(t *testing.T) {
 }
 
 func TestSetEval32_function_returns_out_of_range(t *testing.T) {
+	t.Parallel()
+
 	gen := New(12345)
 
 	err := gen.SetEval32(func(seed int64, dim ...float32) float32 {
@@ -35,6 +41,8 @@ func TestSetEval32_function_returns_out_of_range(t *testing.T) {
 }
 
 func TestSetEval64_function_returns_out_of_range(t *testing.T) {
+	t.Parallel()
+
 	gen := New(12345)
 
 	err := gen.SetEval64(func(seed int64, dim ...float64) float64 {

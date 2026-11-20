@@ -12,6 +12,8 @@ import (
 )
 
 func Test_original_perlin(t *testing.T) {
+	t.Parallel()
+
 	const seed = 100
 
 	p := goperlin.NewPerlin(perlin.Alpha, perlin.Beta, perlin.Iteration, seed)
@@ -33,6 +35,8 @@ func Test_original_perlin(t *testing.T) {
 }
 
 func TestNew_instantiate(t *testing.T) {
+	t.Parallel()
+
 	const seed = 100
 
 	p := perlin.New(seed)
