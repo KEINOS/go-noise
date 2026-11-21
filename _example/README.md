@@ -20,15 +20,28 @@ Example of 2 dimmension image with time lapse as the 3rd dimmension.
 
 ## Advanced Configuration
 
-By default the `alpha` and `beta` values of Perling noise are set to `2.0` and the iteration to `3`.
+Perlin noise uses a default smoothness (`alpha`) of `2.0`, scale (`beta`) of `2.0`, and iteration count of `3`.
 
-To change them, overwrite the `Smoothness` and `Scale` field values of the object as follows:
+Use `perlin.New` to access the Perlin-specific `Smoothness` and `Scale` fields on `*perlin.Generator`.
 
 ```go
-alpha := 1.5
-beta := 1.5
+package main
 
-n, err := noise.New(noise.Perlin, seed)
-n.Smoothness = alpha
-n.Scale = beta
+import (
+    "fmt"
+
+    "github.com/KEINOS/go-noise/pkg/perlin"
+)
+
+func main() {
+    const seed = 100
+
+    generator := perlin.New(seed)
+    generator.Smoothness = 1.5
+    generator.Scale = 1.5
+
+    fmt.Printf("%.4f\n", generator.Eval64(0.1, 0.2))
+}
 ```
+
+The example prints `-0.7206`. The [runnable Go example](../pkg/perlin/configuration_example_test.go) checks this configuration with `go test ./pkg/perlin` from the repository root.
