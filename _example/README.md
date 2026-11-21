@@ -2,7 +2,7 @@
 
 ## 2D
 
-This example plots one-dimensional noise as a 2D line graph. It uses Go 1.22 or later. The example module declares Gonum Plot and uses the go-noise source from this checkout.
+This example plots one-dimensional noise as a 2D line graph. It uses Go 1.22 or later. The example module declares Gonum Plot and uses the go-noise source from this checkout. The custom noise plot gives the same value each time you evaluate the same seed and coordinates.
 
 Run from the repository root:
 

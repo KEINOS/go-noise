@@ -1,8 +1,10 @@
 package main
 
 import (
+	"crypto/sha256"
+	"encoding/binary"
 	"log"
-	"math/rand"
+	"math"
 
 	"github.com/KEINOS/go-noise"
 	"gonum.org/v1/plot"
@@ -25,9 +27,6 @@ const (
 	// The higher the smoother or less difference between the plotting points.
 	smoothness = 100
 )
-
-// rnd is the rand.Rand used by PseudoRrandom() which is the Custom noise generator.
-var rnd *rand.Rand
 
 // ----------------------------------------------------------------------------
 //  Main
@@ -135,24 +134,25 @@ func Normalize(v float64) float64 {
 	return (v + 1) / 2 * float64(height)
 }
 
-// PseudoRrandom is a pseudo-random noise function for use as a user-defined
-// noise generator for the Eval64 method.
+// PseudoRrandom returns deterministic pseudo-random noise for a seed and coordinates.
 func PseudoRrandom(seed int64, dim ...float64) float64 {
-	if rnd == nil {
-		// Set the seed.
-		rnd = rand.New(rand.NewSource(seed))
-	}
+	hash := sha256.New()
+	var word [8]byte
 
-	for i := 0; i < len(dim); i++ {
-		v := int(dim[i])
+	binary.LittleEndian.PutUint64(word[:], uint64(seed))
+	_, _ = hash.Write(word[:])
 
-		for ii := 0; ii < v; ii++ {
-			//nolint:gosec // Use of weak random number generation is intended for simple examples.
-			_ = rnd.Float64()
+	for _, coordinate := range dim {
+		if coordinate == 0 {
+			coordinate = 0 // Treat positive and negative zero as the same coordinate.
 		}
+
+		binary.LittleEndian.PutUint64(word[:], math.Float64bits(coordinate))
+		_, _ = hash.Write(word[:])
 	}
 
-	s := rnd.Float64() // 0.0 - 0.9999...
+	// Use 53 bits to keep the result in (-1, 1] without rounding to -1.
+	bits := binary.LittleEndian.Uint64(hash.Sum(nil)) >> 11
 
-	return s*2 - 1 // Convert [0.0,1.0) to [-1.0,1.0]
+	return 1 - float64(bits)*0x1p-52
 }
