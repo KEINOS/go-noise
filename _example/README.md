@@ -6,9 +6,7 @@ This example plots one-dimensional noise as a 2D line graph. It uses Go 1.22 or 
 
 Run from the repository root:
 
-```sh
-(cd _example/2d && go run -mod=readonly .)
-```
+- Run: `cd _example/2d && go run -mod=readonly .`
 
 The command writes `2d_perlin.png`, `2d_opensimplex.png`, and `2d_pseudorandom.png` in `_example/2d`. It overwrites any existing files with these names.
 
