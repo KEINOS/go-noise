@@ -19,4 +19,4 @@ RUN apk add --no-cache \
 
 WORKDIR /workspaces
 
-ENTRYPOINT ["sh", "-c", "go mod download && go test -mod=readonly -race ./..."]
+ENTRYPOINT ["sh", "-ec", "go test -mod=readonly -race ./... ./_example/3d && cd _example/2d && go test -mod=readonly -race ."]
